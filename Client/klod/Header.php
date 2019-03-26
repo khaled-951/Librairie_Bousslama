@@ -27,6 +27,9 @@ if(isset($_SESSION['user_id']))
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+	
+    <link rel="stylesheet" href="css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="css/orders-style.css">
 
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
@@ -127,10 +130,10 @@ if(isset($_SESSION['user_id']))
 							</div>
 							<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
 							<ul class="custom-menu">
-								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+								<li><a href="orders.php"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
 								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+								<li><a href="checkout.php"><i class="fa fa-check"></i> Checkout</a></li>
 								<li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
 								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
 							</ul>
@@ -154,24 +157,24 @@ if(isset($_SESSION['user_id']))
 										<?php
 										if(isset($Stuff))
 										foreach($Stuff as $i)
-										{
-										echo '
+										{?>
 										<div class="product product-widget">
 											<div class="product-thumb">
 												<img src="./img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-price">'; echo $Panier->Get_Product_Price($i['Product_id']); echo ' <span class="qty">';echo 'x'.$i['product_quantity']; echo '</span></h3>
-												<h2 class="product-name"><a href="#">'; echo $Panier->Get_Product_Name($i['Product_id']); echo '</a></h2>
+												<h3 class="product-price"><?php echo $Panier->Get_Product_Price($i['Product_id']); ?> <span class="qty">x<?php echo $i['product_quantity']; ?></span></h3>
+												<h2 class="product-name"><a href="#"><?php echo $Panier->Get_Product_Name($i['Product_id']); ?></a></h2>
 											</div>
-											<a href="?User_ID=';echo $_SESSION['user_id']; echo '&Delete_Product='; echo $i['Product_id']; echo '"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
-										</div>';
+											<a href=<?php echo '?User_ID=" ' . $_SESSION['user_id'] . '&Delete_Product=' . $i['Product_id']; ?>><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
+										</div>
+										<?php
 										}
 										?>
 									</div>
 									<div class="shopping-cart-btns">
-										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+										<a href="panier.php"><button class="main-btn">View Cart</button></a>
+										<a href="checkout.php"><button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
 									</div>
 								</div>
 							</div>

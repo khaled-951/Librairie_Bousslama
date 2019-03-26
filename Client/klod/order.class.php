@@ -24,7 +24,7 @@ class ClassOrder{
 			
 			$products = $req->fetchAll();
 		
-			$req = $this->DB->prepare("INSERT INTO `orders` (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country)");
+			$req = $this->DB->prepare("INSERT INTO `orders` (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`, `is_filled`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country, 0)");
 			$req->bindValue(':user_id', $user_id);
 			$req->bindValue(':first_name', $first_name);
 			$req->bindValue(':last_name', $last_name);
@@ -61,31 +61,60 @@ class ClassOrder{
 	}
 	}
 	
-	public function GetOrders()
+	public function GetOrders($user_id)
 	{
+		$req = $this->DB->prepare("select * from orders where User_ID = :user_id ");
+		$req->bindValue(':user_id', $user_id);
+		$req->execute();
+		$Orders = $req->fetchAll() ;
 		
+		return $Orders ;
+	}
+	
+	public function Get_All_Orders()
+	{
+		$req = $this->DB->prepare("select * from orders ");
+		$req->execute();
+		$Orders = $req->fetchAll() ;
 		
+		return $Orders ;
+	}
+	
+	public function Fill_Order($order_id)
+	{
+		$req = $this->DB->prepare("UPDATE `orders` SET `is_filled`=1 WHERE order_id = :order_id ");
+		$req->bindValue(':order_id', $order_id);
+		$req->execute();
 	}
 	
 	public function update_order($order_id, $user_id, $first_name, $last_name, $email, $address, $city, $country, $zip_code, $tel)
 	{
-		$req = $this->DB->prepare("UPDATE orders SET (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country)");
+		$req = $this->DB->prepare("select * from orders where User_ID = :user_id and order_id = :order_id");
 		$req->bindValue(':user_id', $user_id);
-		$req->bindValue(':first_name', $first_name);
-		$req->bindValue(':last_name', $last_name);
-		$req->bindValue(':email', $email);
-		$req->bindValue(':address', $address);
-		$req->bindValue(':city', $city);
-		$req->bindValue(':country', $country);
-		$req->bindValue(':zip_code', $zip_code);
-		$req->bindValue(':tel', $tel);
+		$req->bindValue(':order_id', $order_id);
 		$req->execute();
+		
+		if(!empty($req->fetchAll()))
+		{
+			$req = $this->DB->prepare("UPDATE `orders` SET `billing_name`=:first_name,`billing_surname`=:last_name,`billing_email`=:email,`billing address`=:address,`billing_postal_code`=:zip_code,`billing_city`=:city,`billing_phone`=:tel,`billing_country`=:country WHERE order_id = :order_id ");
+			$req->bindValue(':order_id', $order_id);
+			$req->bindValue(':first_name', $first_name);
+			$req->bindValue(':last_name', $last_name);
+			$req->bindValue(':email', $email);
+			$req->bindValue(':address', $address);
+			$req->bindValue(':city', $city);
+			$req->bindValue(':country', $country);
+			$req->bindValue(':zip_code', $zip_code);
+			$req->bindValue(':tel', $tel);
+			$req->execute();
+		}
 	}
 	
 	public function delete_order($order_id, $user_id)
 	{
-		$req = $this->DB->prepare("DELETE FROM `orders_products` WHERE order_id = (SELECT order_id FROM `orders` WHERE user_id = :user_id and order_id = :order_id)");
+		$req = $this->DB->prepare("DELETE FROM `orders_products` WHERE order_id = (SELECT order_id FROM `orders` WHERE user_id = :user_id and order_id = :order_id AND is_filled = 0) ");
 		$req->bindValue(':order_id', $order_id);
+		$req->bindValue(':user_id', $user_id);
 		$req->execute();
 		
 		$req = $this->DB->prepare("delete from orders where order_id = :order_id AND user_id = :user_id");
@@ -96,13 +125,26 @@ class ClassOrder{
 	
 	public function delete_all_orders($user_id)
 	{
-		$req = $this->DB->prepare("DELETE FROM `orders_products` WHERE order_id = (SELECT order_id FROM `orders` WHERE user_id = :user_id)");
+		$req = $this->DB->prepare("SELECT order_id FROM `orders` WHERE user_id = :user_id AND is_filled = 0");
 		$req->bindValue(':user_id', $user_id);
 		$req->execute();
+		$orders = $req->fetchAll();
 		
-		$req = $this->DB->prepare("delete from orders where user_id = :user_id");
-		$req->bindValue(':user_id', $user_id);
-		$req->execute();
+		$done = 0 ;
+		foreach($orders as $order)
+		{
+			$req = $this->DB->prepare("DELETE FROM `orders_products` WHERE order_id = :order_id");
+			$req->bindValue(':order_id', $order['order_id']);
+			$req->execute();
+			$done = 1 ;
+		}
+		
+		if($done)
+		{
+			$req = $this->DB->prepare("delete from orders where user_id = :user_id AND is_filled = 0");
+			$req->bindValue(':user_id', $user_id);
+			$req->execute();
+		}
 	}
 }
 
