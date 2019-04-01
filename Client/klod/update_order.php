@@ -11,7 +11,14 @@ if(	isset($_SESSION['user_id']) && isset($_GET['first-name']) && isset($_GET['la
 }
 	
 if(	isset($_SESSION['user_id']) && isset($_GET['order_id']) )
+{
 	$Orders = $Order->GetOrders($_SESSION['user_id']);
+	foreach($Orders as $i)
+	{
+		if($i['order_id'] == $_GET['order_id'])
+			$O = $i ;
+	}
+}
 else
 	echo "<script> window.location.href = 'orders.php' </script>";
 ?>
@@ -30,28 +37,28 @@ else
 								<h3 class="title">Billing Details</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" value=<?php echo $Orders[0]['billing_name'] ; ?> >
+								<input class="input" type="text" name="first-name" placeholder="First Name" value=<?php echo $O['billing_name'] ; ?> >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name" value=<?php echo $Orders[0]['billing_surname'] ; ?> >
+								<input class="input" type="text" name="last-name" placeholder="Last Name" value=<?php echo $O['billing_surname'] ; ?> >
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" value=<?php echo $Orders[0]['billing_email'] ; ?>>
+								<input class="input" type="email" name="email" placeholder="Email" value=<?php echo $O['billing_email'] ; ?>>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address" value=<?php echo $Orders[0]['billing address'] ; ?>>
+								<input class="input" type="text" name="address" placeholder="Address" value=<?php echo $O['billing address'] ; ?>>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City" value=<?php echo $Orders[0]['billing_city'] ; ?>>
+								<input class="input" type="text" name="city" placeholder="City" value=<?php echo $O['billing_city'] ; ?>>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country" value=<?php echo $Orders[0]['billing_country'] ; ?>>
+								<input class="input" type="text" name="country" placeholder="Country" value=<?php echo $O['billing_country'] ; ?>>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" value=<?php echo $Orders[0]['billing_postal_code'] ; ?>>
+								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" value=<?php echo $O['billing_postal_code'] ; ?>>
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone" value=<?php echo $Orders[0]['billing_phone'] ; ?>>
+								<input class="input" type="tel" name="tel" placeholder="Telephone" value=<?php echo $O['billing_phone'] ; ?>>
 							</div>
 							<input class="hidden" name="order_id" value=<?php echo $_GET['order_id'] ; ?>>
 						</div>

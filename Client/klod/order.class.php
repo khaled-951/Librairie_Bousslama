@@ -24,7 +24,7 @@ class ClassOrder{
 			
 			$products = $req->fetchAll();
 		
-			$req = $this->DB->prepare("INSERT INTO `orders` (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`, `is_filled`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country, 0)");
+			$req = $this->DB->prepare("INSERT INTO `orders` (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`, `is_filled`, `order_date`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country, 0, NOW())");
 			$req->bindValue(':user_id', $user_id);
 			$req->bindValue(':first_name', $first_name);
 			$req->bindValue(':last_name', $last_name);
@@ -89,7 +89,7 @@ class ClassOrder{
 	
 	public function update_order($order_id, $user_id, $first_name, $last_name, $email, $address, $city, $country, $zip_code, $tel)
 	{
-		$req = $this->DB->prepare("select * from orders where User_ID = :user_id and order_id = :order_id");
+		$req = $this->DB->prepare("select * from orders where User_ID = :user_id and order_id = :order_id AND is_filled = 0");
 		$req->bindValue(':user_id', $user_id);
 		$req->bindValue(':order_id', $order_id);
 		$req->execute();
@@ -146,6 +146,47 @@ class ClassOrder{
 			$req->execute();
 		}
 	}
+	
+	public function Get_Last_Month_Orders_Number()
+	{
+		$req = $this->DB->prepare("select * from `orders` where order_date >= DATE_SUB(curdate(), INTERVAL 1 MONTH) and is_filled = 1");
+		$req->execute();
+		return (count($req->fetchAll()));
+	}
+	
+	public function Get_Last_Month_Revenue()
+	{
+		$sum = 0 ;
+		$req = $this->DB->prepare("SELECT product_id, product_quantity FROM orders O inner join orders_products OP on O.order_id = OP.order_id where O.order_date >= DATE_SUB(curdate(), INTERVAL 1 MONTH) and is_filled = 1");
+		$req->execute();
+		$products = $req->fetchAll();
+		
+		
+		foreach( $products as $product )
+		{
+			$req = $this->DB->prepare("SELECT * FROM `products` where product_id = :product_id");
+			$req->bindValue(':product_id', $product['product_id']);
+			$req->execute();
+			$prices = $req->fetchAll();
+			
+			$sum+= $product['product_quantity'] * $prices[0]['Product_Price'] ;
+		}
+		return ($sum);
+	}
+	
+	public function Get_filled_orders_stats()
+	{
+		$stats = array() ;
+		
+		for($i=6; $i>=0; $i--)
+		{
+		$req = $this->DB->prepare("SELECT count(*) FROM orders where order_date >= DATE_SUB(curdate(), INTERVAL " . (int)$i . " DAY) and order_date <= DATE_SUB(curdate(), INTERVAL " . (int)($i - 1) . " DAY) and is_filled = 1");
+		$req->execute();
+		array_push($stats, (int)$req->fetchAll()[0]['count(*)']);
+		}
+		return $stats ;
+	}
+	
 }
 
 ?>

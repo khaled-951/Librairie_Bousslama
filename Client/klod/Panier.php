@@ -86,7 +86,7 @@ if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET
 								</tfoot>
 							</table>
 							<div class="pull-left">
-								<a href="https://google.fr"><button class="primary-btn">Update</button></a>
+								<a href="https://google.fr" ><button class="primary-btn">Update</button></a>
 							</div>
 							<div class="pull-right">
 								<a href="checkout.php"><button class="primary-btn">Place Order</button></a>

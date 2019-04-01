@@ -11,7 +11,10 @@ class ClassPanier{
 	
 	public function add($user_id, $product_id, $quantity)
 	{	
-		if ($quantity > 0)
+		$req = $this->DB->prepare("select * from products where product_id = :product_id");
+			$req->bindValue(':product_id', $product_id) ;
+			$req->execute();
+		if ($quantity > 0 && !empty($req->fetchAll()))
 		{
 			$req = $this->DB->prepare("select * from cart where user_id = :user_id AND product_id = :product_id");
 			$req->bindValue(':user_id', $user_id);

@@ -62,6 +62,7 @@ if(	isset($_SESSION['user_id']) && isset($_GET['Fill_Order']) )
 											<th>City</th>
                                             <th>Phone</th>
                                             <th>Country</th>
+											<th>Order Date</th>
 											<th>Filled</th>
                                         </tr>
                                     </thead>
@@ -79,6 +80,7 @@ if(	isset($_SESSION['user_id']) && isset($_GET['Fill_Order']) )
                                             <td> <?php echo $i['billing_city'] ?> </td>
 											<td> <?php echo $i['billing_phone'] ?> </td>
                                             <td> <?php echo $i['billing_country'] ?> </td>
+											<td> <?php echo $i['order_date'] ?> </td>
                                             <td>
                                                 <span class="badge badge-pending">Pending</span>
                                             </td>
