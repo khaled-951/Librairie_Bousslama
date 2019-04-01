@@ -1,7 +1,15 @@
 <!doctype html>
 <?PHP
 include "core/AnnoncesC.php";
-$Annonces1C=new AnnoncesC();
+$Annonces1C =new AnnoncesC();
+$listeAnnonces=$Annonces1C->afficherAnnonces();
+
+
+if(empty($_POST['search'])==false){
+ $x=$_POST['search'];
+    $listeAnnonces=$Annonces1C->rechercherAnnonces($x);}
+
+    else
 $listeAnnonces=$Annonces1C->afficherAnnonces();
 
 //var_dump($listeEmployes->fetchAll());
@@ -69,10 +77,10 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Annonces</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Ajouter Annonces</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="afficherAnnonces.php">Afficher Annonces</a></li>
                         </ul>
                     </li>
 
@@ -256,6 +264,11 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
 
         <div class="content">
             
+            <table class="table table-striped b-t b-light">
+                <form method="POST" action="afficherAnnonces.php">
+                    <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
+                    <input type="submit" value="Rechercher"  class="btn btn-primary">
+                </form>
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-lg-6">
@@ -263,15 +276,12 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                             <div class="card-header">
                                 <strong class="card-title">Annonces</strong>
                             </div>
-                            
                             <div class="table-stats order-table ov-h">
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th class="serial">#</th>
-                                            <th class="avatar">Avatar</th>
-                                            <th>Pseudo</th>
-                                            <th>Type</th>
+                                            <th class="serial">id</th>
+                                            <th class="avatar">Type</th>
                                             <th>Description</th>
                                            
                                         </tr>
