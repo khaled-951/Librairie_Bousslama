@@ -6,7 +6,7 @@
  * Time: 3:55 PM
  */
 
-include "../e-shop/core/livraisonC.php";
+include "../../core/livraisonC.php";
 
 $livraisonC=new livraisonC();
 /*$x=0+$_GET['id'];

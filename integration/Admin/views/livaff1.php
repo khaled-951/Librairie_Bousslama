@@ -1,6 +1,6 @@
 <!doctype html>
 <?php
-include "../core/livraisonC.php";
+include "../../core/livraisonC.php";
 $livraisonC =new livraisonC();
 
 if(empty($_POST['search'])==false){
@@ -313,7 +313,7 @@ $lst=$livraisonC->afficheliv();
                             <td><span class="text-ellipsis"><?php echo $p['tel_gsm']; ?></span></td>
                             <td><span class="text-ellipsis"><?php echo $p['date_demande_livraison']; ?></span></td>
                             <td><span class="text-ellipsis"><?php echo $p['date_livraison_estimer']; ?></span></td>
-                           <td><a href="../e-shop/modifierliv.php?id=<?php echo $p['id_livraison']; ?>">
+                           <td><a href="integration/views/modifierliv.php?id=<?php echo $p['id_livraison']; ?>">
                                 <input type="submit" value="Modifier "  class="btn btn-primary">
                             </a></td>
                             <td> <a href="suppliv.php?id=<?php echo $p['id_livraison']; ?>">
