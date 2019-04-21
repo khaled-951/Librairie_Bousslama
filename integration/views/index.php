@@ -276,7 +276,7 @@ foreach($listePromo as $nn){
 			
 			
 				<!-- section title -->
-				<div class="col-md-12">
+				<div class="col-md-13">
 					<div class="section-title">
 						<h2 class="title">Les Produits</h2>
 					</div>
@@ -286,14 +286,16 @@ foreach($listePromo as $nn){
 				<?php $liste=$Produit->afficherProduit ();?>
 			<?php foreach ($liste as $row ) :?>
 				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-				
-					<div class="product product-single">
+				<div class="col-md-3 col-sm-10 col-xs-10">
+								
+					<div class="product product-single" style="height:500px">
 						<div class="product-thumb">
 							<a href="product-page.php?details=<?=$row['id'];?>"><button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button></a>
 							<img src="img/<?= $row['image'] ?>" widht="300" height="300" alt="">
 						</div>
-						<div class="product-body">
+						<h4 class="product-price"><?= $row['nom'] ?></h4>
+						<br>
+
                         <?php
 						$yID= $row['id'];
 
@@ -304,6 +306,9 @@ foreach($listePromo as $nn){
 									 $prix = -1;
 									foreach($idPromo as $nn){
 										$prix = $nn['prix_nouveau'];
+										$date_debut=$nn['date_debut'];
+										$date_fin=$nn['date_fin'];
+
 									}
 
 									 								 
@@ -312,15 +317,19 @@ foreach($listePromo as $nn){
 											$prixPromo = $nn['prix_nouveau']; 
 										}
                   ?>
-									  <span class="product-price">$<?php echo $prix ?></span>
-										<span class="product-price">	<del>$<?php echo $row['prix'] ?></del></span>
+									  <p><strong><span class="product-price">$<?php echo $prix ?> ~ </strong> $<del><?php echo $row['prix'] ?></del></span></p>  
+									
+										<span class="product-name"><?php echo $date_debut?>  / <?php echo $date_fin ?></span>
+
+
+
 										
 										<?php
 									}
 									else {
 									?>
 
-                    <span class="product-price">$<?php echo $row['prix'] ?></span>
+<p><strong> <span class="product-price">$<?php echo $row['prix'] ?></span></span></p>
 										
 										
 <?php
@@ -334,14 +343,13 @@ foreach($listePromo as $nn){
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><?= $row['nom'] ?></h2>
+							<br><br>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
 								<a href="panier.php?Product_ID=<?=$row['id'];?>&Product_Quantity=1"><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button></a>
 							</div>
 						</div>
-					</div>
 					
 				</div>
 				<?php endforeach;?>
