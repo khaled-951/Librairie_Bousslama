@@ -216,7 +216,7 @@ $Produit = new ProduitC() ;
 									</div>
 									<div class="product-body">
 									<?php
-						$yID= $row['id'];
+									$yID= $row['id'];
 
 									
 									 $sql="SELECT * from promo where idProd = $yID ";
@@ -232,8 +232,22 @@ $Produit = new ProduitC() ;
 										foreach($idPromo as $nn){
 											$prixPromo = $nn['prix_nouveau']; 
 										}
-                  ?>
-										<h3 class="product-price"><?= $row['prix'] ?><del class="product-old-price">$<?php echo $prix ?></del></h3>
+                 		 ?>
+									  <span class="product-price">$<?php echo $prix ?></span>
+										<span class="product-price">	<del>$<?php echo $row['prix'] ?></del></span>
+										
+										<?php
+									}
+									else {
+									?>
+
+                    <span class="product-price">$<?php echo $row['prix'] ?></span>
+										
+										
+<?php
+									}
+									?>
+										
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
