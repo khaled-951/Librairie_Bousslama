@@ -184,66 +184,54 @@ session_start();
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label class=" form-control-label">Static</label></div>
                                         <div class="col-12 col-md-9">
-                                            <p class="form-control-static">Username</p>
+                                            <p class="form-control-static">ajouter un livreur</p>
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="id_livreur" class=" form-control-label">id_livreur</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="id_livreur" name="id_livreur" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
-                                    </div>
-                                    <div class="row form-group">
                                         <div class="col col-md-3"><label for="nom" class=" form-control-label">nom</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="nom" name="nom" placeholder="nom" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="nom" name="nom" placeholder="nom" class="form-control"><small class="form-text text-muted"></small></div>
                                     </div>
                                   
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="prenom" class=" form-control-label">prenom</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="prenom" name="prenom" placeholder="prenom" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="prenom" name="prenom" placeholder="prenom" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="age" class=" form-control-label">age</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="age" name="age" placeholder="age" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="age" name="age" placeholder="age" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="num_tel" class=" form-control-label">numero de telephone</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="num_tel" name="num_tel" placeholder="num_tel" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="num_tel" name="num_tel" placeholder="num_tel" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="Email" class=" form-control-label">Email</label></div>
-                                        <div class="col-12 col-md-9"><input type="email" id="Email" name="Email" placeholder="Email" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="email" id="Email" name="Email" placeholder="Email" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="zone" class=" form-control-label">zone</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="zone" name="zone" placeholder="zone" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="zone" name="zone" placeholder="zone" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="situation" class=" form-control-label">situation</label></div>
-                                        <div class="col-12 col-md-9"><input type="number" id="situation" name="situation" placeholder="situation" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="number" id="situation" name="situation" placeholder="situation" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="vehicule" class=" form-control-label">vehicule</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="vehicule" name="vehicule" placeholder="vehicule" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="vehicule" name="vehicule" placeholder="vehicule" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="zone_livraison" class=" form-control-label">zone de livraison</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="zone_livraison" name="zone_livraison" placeholder="zone_livraison" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="zone_livraison" name="zone_livraison" placeholder="zone_livraison" class="form-control"><small class="help-block form-text"></small></div>
                                     </div>
 
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
+                                        <div class="col col-md-3"><label for="select" class=" form-control-label"></label></div>
                                         <div class="col-12 col-md-9">
-                                            <select name="cat" id="select" class="form-control-label">
-                                                <option value="0">Veuillez choisir la catégorie</option>
-                                                <option value="1">beau-livre</option>
-                                                <option value="2">cat2</option>
-                                                <option value="3">cat3</option>
-                                            </select>
+                                         
                                         </div>
                 
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
-                                        <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
-                                    </div>
+                                   
                                    
                                 </form>
                             </div>

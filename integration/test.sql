@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 21 avr. 2019 à 15:30
+-- Généré le :  Dim 21 avr. 2019 à 11:27
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -185,53 +185,6 @@ INSERT INTO `events` (`id`, `name`, `address`, `phone`, `informations`, `DateDeb
 (4, 'maysa', 'dddd@rtfyui', '52376526', 'baaby', '2019-04-10', '2019-04-18', 'tÃ©lÃ©chargÃ© (1).jpg'),
 (120, 'maysa', 'maysa@ghjkj', '774632', 'rtyuijok', '2019-04-17', '2019-04-22', 'book.jpg'),
 (5588, 'fdgyhjkl', 'gyhuj@gfhj', '7845654122', 'Ø¨Ù‚Ø§ØªÙ†Ù…Ø¨Ù„Ø§ØªÙ†Ù…Ø¨Ù„Ø§ØªÙ†Ù…ÙƒÙˆ', '2019-04-15', '2019-04-25', 'images.png');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `livraison`
---
-
-DROP TABLE IF EXISTS `livraison`;
-CREATE TABLE IF NOT EXISTS `livraison` (
-  `id_livraison` int(10) NOT NULL AUTO_INCREMENT,
-  `nom_destinataire` varchar(10) NOT NULL,
-  `prenom_destinataire` varchar(10) NOT NULL,
-  `code_postale` int(10) NOT NULL,
-  `rue_et_ville` varchar(20) NOT NULL,
-  `pays` varchar(10) NOT NULL,
-  `tel_gsm` int(10) NOT NULL,
-  `date_demande_livraison` date NOT NULL,
-  `date_livraison_estimer` date NOT NULL,
-  PRIMARY KEY (`id_livraison`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `livraison`
---
-
-INSERT INTO `livraison` (`id_livraison`, `nom_destinataire`, `prenom_destinataire`, `code_postale`, `rue_et_ville`, `pays`, `tel_gsm`, `date_demande_livraison`, `date_livraison_estimer`) VALUES
-(2, 'aaa', 'aaa', 1222, 'aahaha', 'tunisia', 111, '2019-04-09', '2019-04-03');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `livreur`
---
-
-DROP TABLE IF EXISTS `livreur`;
-CREATE TABLE IF NOT EXISTS `livreur` (
-  `id_livreur` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(10) NOT NULL,
-  `prenom` varchar(10) NOT NULL,
-  `age` int(10) NOT NULL,
-  `email` varchar(10) NOT NULL,
-  `zone_habitation` varchar(10) NOT NULL,
-  `situation` int(10) NOT NULL,
-  `vehicule` varchar(10) NOT NULL,
-  `zone_de_livraison` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_livreur`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

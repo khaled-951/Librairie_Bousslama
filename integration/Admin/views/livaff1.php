@@ -271,7 +271,7 @@ $lst=$livraisonC->afficheliv();
         <div class="content">
 
             <table class="table table-striped b-t b-light">
-                <form method="POST" action="livaff.php">
+                <form method="POST" action="livaff1.php">
                     <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
                     <input type="submit" value="Rechercher"  class="btn btn-primary">
                 </form>
