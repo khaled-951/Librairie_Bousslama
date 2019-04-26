@@ -21,24 +21,29 @@
       include "../core/produitC.php";
 if(isset($_GET['details'])){
 
-    $produitC1=new ProduitC();
-    $result=$produitC1->recupererProduit($_GET['details']);
-	foreach($result as $row){
-		$id=$row['id'];
-		$nom=$row['nom'];
-		$image=$row['image'];
-		$prix=$row['prix'];
-        $quantite=$row['quantite'];
-		$description=$row['description'];
-		$cat=$row['cat'];
-}
-}
+    
+	
+	$promo1C=new ProduitC();
+$listePromo=$promo1C->afficherpromos();
 
+
+
+
+foreach($listePromo as $nn){
+}
+}
 ?>
+	
 
 	<!-- section -->
 	<div class="section">
 		<!-- container -->
+<?php
+		$produitC1=new ProduitC();
+	$result=$produitC1->recupererProduit($_GET['details']);
+	foreach($result as $row){
+		?>
+
 		<div class="container">
 			<!-- row -->
 			<div class="row">
@@ -47,13 +52,13 @@ if(isset($_GET['details'])){
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-							<img src="img/<?= $row['image'] ?>" widht="700" height="130" alt="">
+							<img src="img/<?= $row['image'] ?>" widht="700" height="700" alt="">
 							</div>
 							
 						</div>
 						<div id="product-view">
 							<div class="product-view">
-							<img src="img/<?= $row['image'] ?>" widht="3" height="3" alt="">
+							<img src="img/<?= $row['image'] ?>" widht="700" height="200" alt="">
 							</div>
 							
 						
@@ -69,7 +74,48 @@ if(isset($_GET['details'])){
 								<a href="#">3 Review(s) / Add Review</a>
                             </div>
                             <br>
-							<p><strong>Prix:</strong> <?php echo $row['prix'] ?></p>
+
+
+
+							<?php
+						$yID= $row['id'];
+
+									
+									 $sql="SELECT * from promo where idProd = $yID ";
+									 $db = config::getConnexion();
+									 $idPromo=$db->query($sql);
+									 $prix = -1;
+									foreach($idPromo as $nn){
+										$prix = $nn['prix_nouveau'];
+										$date_debut=$nn['date_debut'];
+										$date_fin=$nn['date_fin'];
+									}
+
+									 								 
+									if($prix!=-1){
+										foreach($idPromo as $nn){
+											$prixPromo = $nn['prix_nouveau']; 
+										}
+                  ?>
+									  <p><strong><span class="product-price">$<?php echo $prix ?> ~ </strong> $<del><?php echo $row['prix'] ?></del></span></p>  
+
+										<p>	<strong>En Promotion : </strong><span  class="product-name"><?php echo $date_fin ?></span></p>
+
+										
+										<?php
+									}
+									else {
+									?>
+
+                    <span class="product-price">$<?php echo $row['prix'] ?></span>
+										
+										
+<?php
+									}
+								
+									?>
+
+
 							<p><strong>Description:</strong> <?php echo $row['description'] ?></p>
 							<p><strong>Disponibilité:</strong> <?php if  ($row['quantite']==0) print "Hors Stock " ; else print "En Stock"; ?></p>
 							
@@ -83,6 +129,10 @@ if(isset($_GET['details'])){
 									<i class="fa fa-star"></i>
 								</div>
 
+								
+
+
+
 							<div class="product-btns">
 								
 								<div class="pull-right">
@@ -95,6 +145,13 @@ if(isset($_GET['details'])){
 							</div>
 						</div>
 					</div>
+					<?php
+									}
+								
+									?>
+					
+
+
 					<div class="col-md-12">
 						<div class="product-tab">
 							<ul class="tab-nav">
@@ -106,6 +163,7 @@ if(isset($_GET['details'])){
 								<div id="tab1" class="tab-pane fade in active">
 									<p><?php echo $row['description'] ?></p>
 								</div>
+								
 								<div id="tab2" class="tab-pane fade in">
 
 									<div class="row">

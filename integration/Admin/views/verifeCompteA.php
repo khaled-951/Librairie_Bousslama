@@ -3,7 +3,7 @@
 
 		session_start();
 
-$con=mysqli_connect("localhost","root","","atelier3"); 
+$con=mysqli_connect("localhost","root","","test"); 
 if (isset($_POST['mailS']))
 {
 	$maila=$_POST['mailS'];
