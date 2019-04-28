@@ -8,19 +8,21 @@ class Promo{
     private $date_debut;
     private $date_fin;
     private $prix_nouveau;
-    private $description;
+		private $description;
+		private $taux;
 
     
 
 
 
-	function __construct($Id,$iddp,$Date_debut,$Date_fin,$Prix_Nouveau,$Description){
+	function __construct($Id,$iddp,$Date_debut,$Date_fin,$Prix_Nouveau,$Description,$taux){
 		$this->id=$Id;
 		$this->idProd=$iddp;
 		$this->date_debut=$Date_debut;
 		$this->date_fin=$Date_fin;
 		$this->prix_nouveau=$Prix_Nouveau;
 		$this->description=$Description;
+		$this->taux=$taux;
 		
 
 
@@ -44,6 +46,9 @@ class Promo{
 	}
     function getdescription(){
 		return $this->description;
+	}
+	function gettaux(){
+		return $this->taux;
 	}
 
 	
