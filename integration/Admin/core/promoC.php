@@ -10,15 +10,24 @@ function afficherpromo ($promo){
 		echo "date_fin: ".$promo->getdate_fin()."<br>";
 		echo "prix_nouveau: ".$promo->getprix_nouveau()."<br>";
 		echo "description: ".$promo->getdescription()."<br>";
+		echo "taux : ".$promo->getaux()."<br>";
 
 
+
+
+	}
+	
+	function calcultaux($prix_in,$prix_f)
+	{
+		$taux_promo=(($prix_in-$prix_f)/$prix_in)*100;
+		return $taux_promo;
 
 
 	}
 
 	function ajouterPromo($promo){
 
-		$sql="insert into promo (id,idProd,date_debut,date_fin,prix_nouveau,description) values (:id, :idProd,:date_debut,:date_fin,:prix_nouveau,:description)";
+		$sql="insert into promo (id,idProd,date_debut,date_fin,prix_nouveau,description,taux) values (:id, :idProd,:date_debut,:date_fin,:prix_nouveau,:description,:taux)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);
@@ -29,6 +38,7 @@ function afficherpromo ($promo){
         $date_fin=$promo->getdate_fin();
 		$prix_nouveau=$promo->getprix_nouveau();
 		$description=$promo->getdescription();
+		$taux=$promo->gettaux();
 
 
 		$req->bindValue(':id',$id);
@@ -37,6 +47,8 @@ function afficherpromo ($promo){
 		$req->bindValue(':date_fin',$date_fin);
 		$req->bindValue(':prix_nouveau',$prix_nouveau);
 		$req->bindValue(':description',$description);
+		$req->bindValue(':taux',$taux);
+
 
 
 
@@ -82,7 +94,7 @@ function afficherpromos(){
 	}
 
 function modifiePromo($promo,$id){
-		$sql="UPDATE promo SET id=:idd, idProd=:idProd,date_debut=:date_debut,date_fin=:date_fin,prix_nouveau=:prix_nouveau,description=:description WHERE id=:id";
+		$sql="UPDATE promo SET id=:idd, idProd=:idProd,date_debut=:date_debut,date_fin=:date_fin,prix_nouveau=:prix_nouveau,description=:description,taux=:taux WHERE id=:id";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -93,7 +105,8 @@ try{
         $date_debut=$promo->getdate_debut();
         $prix_an=$promo->getdate_fin();
         $prix_nouv=$promo->getprix_nouveau();
-        $descrip=$promo->getdescription();
+		$descrip=$promo->getdescription();
+		$taux=$promo->gettaux();
 		$datas = array(':idd'=>$idd, ':id'=>$id, ':idProd'=>$idProd,':date_debut'=>$date_debut,':date_fin'=>$prix_an,':prix_nouveau'=>$prix_nouv,':description'=>$descrip);
 		$req->bindValue(':idd',$idd);
 		$req->bindValue(':id',$id);
@@ -102,6 +115,7 @@ try{
 		$req->bindValue(':date_fin',$prix_an);
 		$req->bindValue(':prix_nouveau',$prix_nouv);
 		$req->bindValue(':description',$descrip);
+		$req->bindValue(':taux',$taux); 
 		
 		
             $s=$req->execute();

@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php 
+session_start();
+
 include "../core/categorieC.php";
 include "../core/produitC.php";
 include "../core/wishlistC.php";
@@ -6,7 +8,6 @@ $categorieC =new categorieC();
 $listeCategorieC=$categorieC->afficherCategorie();   
 $produitC =new ProduitC();
 $listeProduit=$produitC->afficherProduit(); 
-$nbr=$produitC->Number();
 $wishC =new wishlistC();
 $wosh=$wishC->Viewwishlist((int)$_SESSION['user_id']); 
 var_dump($wosh);
@@ -23,9 +24,9 @@ var_dump($wosh);
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Surname</th>
-                                            <th>Email</th>
+                                            <th>nom</th>
+                                            <th>prix</th>
+                                            <th>Quantité</th>
                                            
                                         </tr>
                                     </thead>

@@ -1,16 +1,12 @@
+
+
 <!doctype html>
 <?PHP
-include "core/AnnoncesC.php";
-$Annonces1C =new AnnoncesC();
-$listeAnnonces=$Annonces1C->afficherAnnonces();
+include "core/ReclamationC.php";
+$Reclamation1C=new ReclamationC();
+$listeReclamation=$Reclamation1C->afficherReclamations();
 
 
-if(empty($_POST['search'])==false){
- $x=$_POST['search'];
-    $listeAnnonces=$Annonces1C->rechercherAnnonces($x);}
-
-    else
-$listeAnnonces=$Annonces1C->afficherAnnonces();
 
 //var_dump($listeEmployes->fetchAll());
 ?>
@@ -77,10 +73,10 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Annonces</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Reclamation</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic1.php">Ajouter Annonces</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="afficherAnnonces.php">Afficher Annonces</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic1.php">Ajouter Reclamation</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="afficherReclamation.php">Afficher Reclamation</a></li>
                         </ul>
                     </li>
 
@@ -265,7 +261,7 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
         <div class="content">
             
             <table class="table table-striped b-t b-light">
-                <form method="POST" action="afficherAnnonces.php">
+                <form method="POST" action="afficherReclamation.php">
                     <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
                     <input type="submit" value="Rechercher"  class="btn btn-primary">
                 </form>
@@ -274,7 +270,7 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Annonces</strong>
+                                <strong class="card-title">Reclamation</strong>
                             </div>
                             <div class="table-stats order-table ov-h">
                                 <table class="table ">
@@ -287,22 +283,30 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       <?PHP
-	foreach($listeAnnonces as $row){
+                               
+<?PHP
+foreach($listeReclamation as $row){
 	?>
 	<tr>
 	<td><?PHP echo $row['id']; ?></td>
-	<td><?PHP echo $row['type']; ?></td>
+	<td><?PHP echo $row['nomU']; ?></td>
+	<td><?PHP echo $row['dateRec']; ?></td>
+	<td><?PHP echo $row['sujet']; ?></td>
 	<td><?PHP echo $row['Description']; ?></td>
-	<td><form method="POST" action="supprimerAnnonces.php">
+	<td><img width="100" src="uploads/<?php echo $row['photo'] ?>" alt="<?php echo $row['photo'] ?>"></td>
+	<td><form method="POST" action="supprimerReclamation.php">
 	<input type="submit" name="supprimer" value="supprimer">
 	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
 	</form>
 	</td>
-	<td><a href="modifierAnnonces.php?id=<?PHP echo $row['id']; ?>">
-	Modifier</a></td>
+	<td><a href="modifierReclamation.php?id=<?PHP echo $row['id']; ?>">
+	Accept</a></td>
+		<td><a href="modifierReclamation1.php?id=<?PHP echo $row['id']; ?>">
+	Decline</a></td>
 	</tr>
 	<?PHP
+}
+?>
 }
 			?>
                                     </tbody>

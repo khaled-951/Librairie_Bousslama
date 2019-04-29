@@ -1,28 +1,6 @@
-<?php
-
-session_start();
-
-require '../config.php' ;
-require '../core/panier.class.php' ;
-
-$config_DB = new config();
-$DB = $config_DB->getConnexion();
-
-$Panier = new ClassPanier($DB);
-
-if(isset($_SESSION['user_id']))
-	$Stuff = $Panier->GetPanier($_SESSION['user_id']);
-?>
-<?php 
-
-include "../core/categorieC.php";
-
-$categorieC =new categorieC();
-$listeCategorieC=$categorieC->afficherCategorie();   
-
-?>
-
 <!DOCTYPE html>
+
+
 <html lang="en">
 
 <head>
@@ -35,9 +13,6 @@ $listeCategorieC=$categorieC->afficherCategorie();
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
-	
-    <link rel="stylesheet" href="css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="css/orders-style.css">
 
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
@@ -138,10 +113,10 @@ $listeCategorieC=$categorieC->afficherCategorie();
 							</div>
 							<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
 							<ul class="custom-menu">
-								<li><a href="orders.php"><i class="fa fa-user-o"></i> My Account</a></li>
+								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
 								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-								<li><a href="checkout.php"><i class="fa fa-check"></i> Checkout</a></li>
+								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
 								<li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
 								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
 							</ul>
@@ -153,36 +128,39 @@ $listeCategorieC=$categorieC->afficherCategorie();
 							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
 									<i class="fa fa-shopping-cart"></i>
-									<span class="qty"><?php if(isset($Stuff)) echo count($Stuff); else echo 0 ;?></span>
+									<span class="qty">3</span>
 								</div>
 								<strong class="text-uppercase">My Cart:</strong>
 								<br>
-								<span><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['user_id']); else echo 0 ;?>$</span>
+								<span>35.20$</span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
 									<div class="shopping-cart-list">
-										<?php
-										if(isset($Stuff))
-										foreach($Stuff as $i)
-										{?>
 										<div class="product product-widget">
 											<div class="product-thumb">
 												<img src="./img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-price"><?php echo $Panier->Get_Product_Price($i['Product_id']); ?> <span class="qty">x<?php echo $i['product_quantity']; ?></span></h3>
-												<h2 class="product-name"><a href="#"><?php echo $Panier->Get_Product_Name($i['Product_id']); ?></a></h2>
+												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
 											</div>
-											<a href="panier<?php echo '?User_ID=' . $_SESSION['user_id'] . '&Delete_Product=' . $i['Product_id']; ?>"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
+											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
 										</div>
-										<?php
-										}
-										?>
+										<div class="product product-widget">
+											<div class="product-thumb">
+												<img src="./img/thumb-product01.jpg" alt="">
+											</div>
+											<div class="product-body">
+												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+											</div>
+											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
+										</div>
 									</div>
 									<div class="shopping-cart-btns">
-										<a href="panier.php"><button class="main-btn">View Cart</button></a>
-										<a href="checkout.php"><button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
+										<button class="main-btn">View Cart</button>
+										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
 									</div>
 								</div>
 							</div>
@@ -212,13 +190,10 @@ $listeCategorieC=$categorieC->afficherCategorie();
 				<div class="category-nav show-on-click">
 					<span class="category-header">Categories <i class="fa fa-list"></i></span>
 					<ul class="category-list">
-					
 						<li class="dropdown side-dropdown">
-						
 							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i class="fa fa-angle-right"></i></a>
 							<div class="custom-menu">
 								<div class="row">
-								
 									<div class="col-md-4">
 										<ul class="list-links">
 											<li>
@@ -409,14 +384,11 @@ $listeCategorieC=$categorieC->afficherCategorie();
 
 				<!-- menu nav -->
 				<div class="menu-nav">
-			
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-					<?php  foreach ($listeCategorieC as  $row) :?>
-						<li><a href="products.php?categorie=<?=$row['id'];?>"><?= $row['nom'] ?></a></li>
-						
-						<?php endforeach;?>
-						
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Shop</a></li>
+						<li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-4">
@@ -469,7 +441,7 @@ $listeCategorieC=$categorieC->afficherCategorie();
 								</div>
 							</div>
 						</li>
-						
+						<li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Men <i class="fa fa-caret-down"></i></a>
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-3">
@@ -555,13 +527,13 @@ $listeCategorieC=$categorieC->afficherCategorie();
 								</div>
 							</div>
 						</li>
-						
-					
+						<li><a href="#">Sales</a></li>
+						<li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
 							<ul class="custom-menu">
 								<li><a href="index.html">Home</a></li>
 								<li><a href="products.html">Products</a></li>
 								<li><a href="product-page.html">Product Details</a></li>
-								<li><a href="checkout.html">Checkout</a></li>
+								<li><a href="afficherAvis.php">Avis</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -573,4 +545,128 @@ $listeCategorieC=$categorieC->afficherCategorie();
 	</div>
 	<!-- /NAVIGATION -->
 
-	
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Avis</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<form action="ajoutAvis.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                <form id="checkout-form" class="clearfix">
+					<div class="col-md-6">
+						<div class="billing-details">
+							<p>Already a customer ? <a href="#">Login</a></p>
+							<div class="section-title">
+								<h3 class="title">Avis</h3>
+							</div>
+							<div class="form-group">
+								<input class="input" type="text" name="Sujet" placeholder="Sujet">
+							</div>
+							<div class="row form-group">
+                                        <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Commentaire</label></div>
+                                        <textarea   name="commentaire" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur();"  id="autre" class="form-control"  required pattern="[0-9a-zA-Z,/. ]{3,12}" placeholder="Comment" ></textarea>
+                                    </div>
+                                    <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" name="ajouter" >
+                                    <i class="fa fa-dot-circle-o"></i> Enregistrer
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Reset
+                                </button>
+                            </div>
+                        </form>
+							<div class="form-group">
+								<div class="input-checkbox">
+									<input type="checkbox" id="register">
+									<label class="font-weak" for="register">Create Account?</label>
+									<div class="caption">
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+											<p>
+												<input class="input" type="password" name="password" placeholder="Enter Your Password">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+							
+						
+					<div class="col-md-12">
+						<div class="order-summary clearfix">
+							<div class="section-title">
+								<h3 class="title">Comments</h3>
+							</div>
+							<table class="shopping-cart-table table">
+								<thead>
+									<tr>
+										<th class="text">id</th>
+										<th class="text">Subject</th>
+										<th class="text">Comment</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<?PHP
+foreach($listeAviss as $row){
+	?>
+	<tr>
+	<td><?PHP echo $row['id']; ?></td>
+	<td><?PHP echo $row['Sujet']; ?></td>
+	<td><?PHP echo $row['commentaire']; ?></td>
+	<td><form method="POST" action="supprimerAvis.php">
+	<button type="submit" class="btn btn-remove btn-sm">
+                                    <i class="fa fa-ban"></i> Remove
+                                </button>
+
+	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
+	</form>
+	</td>
+	<td><a href="modifierAvis.php?id=<?PHP echo $row['id']; ?>">Modifier</a></td>
+	</tr>
+	<?PHP
+}
+?>
+</tbody>
+								
+							
+	<!-- /section -->
+
+	<!-- FOOTER -->
+	<!-- jQuery Plugins -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/main.js"></script>
+<script language="javascript" type="text/javascript">
+									function calculeLongueur(){
+   										var iLongueur, iLongueurRestante;
+   										iLongueur = document.getElementById('autre').value.length;
+   										if (iLongueur>10) {
+     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,20);
+      									iLongueurRestante = 0;
+   										}
+   										else {
+     							 		iLongueurRestante = 20 - iLongueur;
+   									}
+   									if (iLongueurRestante <= 1)
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
+   									else
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
+									}
+							</script>
+</body>
+
+</html>

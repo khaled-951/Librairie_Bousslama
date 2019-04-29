@@ -54,7 +54,7 @@ function afficherAnnonce ($Annonces){
         }
 	}
 	function modifierAnnonces($Annonces,$id){
-		$sql="UPDATE annonces SET id=:idd,type=:type ,Description=:Description WHERE id=:id";
+		$sql="UPDATE annonces SET type=:type ,Description=:Description WHERE id=:id";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -63,8 +63,7 @@ try{
 		$idd=$Annonces->getId();
 		$type=$Annonces->getType();
         $Description=$Annonces->getDescription();
-		$datas = array(':idd'=>$idd,':id'=>$id,':type'=>$type, ':Description'=>$Description);
-		$req->bindValue(':idd',$idd);
+		$datas = array(':id'=>$id,':type'=>$type, ':Description'=>$Description);
 		$req->bindValue(':id',$id);
 		$req->bindValue(':type',$type);
 		$req->bindValue(':Description',$Description);

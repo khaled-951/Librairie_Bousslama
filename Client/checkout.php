@@ -577,11 +577,11 @@ $listeAviss=$Avis1C->afficherAviss();
 								<h3 class="title">Avis</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="Sujet" placeholder="Sujet">
+								<input class="input" type="text" name="Sujet" placeholder="Sujet" required>
 							</div>
 							<div class="row form-group">
                                         <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Commentaire</label></div>
-                                        <div class="col-12 col-md-9"><textarea name="commentaire" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                                        <div class="col-12 col-md-9"><textarea name="commentaire" id="textarea-input" rows="9" placeholder="Content..." required class="form-control"></textarea></div>
                                     </div>
                                     <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm" name="ajouter" >
@@ -780,6 +780,23 @@ foreach($listeAviss as $row){
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
+	<script language="javascript" type="text/javascript">
+									function calculeLongueur(){
+   										var iLongueur, iLongueurRestante;
+   										iLongueur = document.getElementById('autre').value.length;
+   										if (iLongueur>10) {
+     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,20);
+      									iLongueurRestante = 0;
+   										}
+   										else {
+     							 		iLongueurRestante = 20 - iLongueur;
+   									}
+   									if (iLongueurRestante <= 1)
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
+   									else
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
+									}
+							</script>
 
 </body>
 
