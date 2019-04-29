@@ -1,9 +1,18 @@
 <?PHP
 session_start();
-include "../core/categorieC.php";
-$cat1C=new categorieC();
-$listecat=$cat1C->afficherCategorie();
     ?>
+     <?php
+include "../core/produitC.php";
+$produitC =new produitC();
+
+if(empty($_POST['search'])==false){
+ $x=$_POST['search'];
+    $prd=$produitC->rechercherProduit($x);}
+
+else
+$prd=$produitC->trierProduit();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +110,7 @@ $listecat=$cat1C->afficherCategorie();
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="indexB.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -136,6 +145,21 @@ $listecat=$cat1C->afficherCategorie();
           <i class="fas fa-fw fa-table"></i>
           <span>evenement</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="forms-basic.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Annonce</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="formulairep.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Produit</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="formulairec.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Categorie</span></a>
+      </li>
     </ul>
 
     <div id="content-wrapper">
@@ -143,104 +167,81 @@ $listecat=$cat1C->afficherCategorie();
       <div class="container-fluid">
 
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Overview</li>
-        </ol>
+       
 
         <!-- Icon Cards-->
-    
-						
-		<?PHP
-include "../entities/produit.php";
-include "../core/produitC.php";
-if (isset($_GET['id'])){
-	$prdC=new produitC();
-	$result=$prdC->recupererProduit($_GET['id']);
-	var_dump ($result);
-	
-		$id=$result['id'];
-		$nom=$result['nom'];
-		$prix=$result['prix'];
-		$quantite=$result['quantite'];
-		$description=$result['description'];
-		$cat=$result['cat'];
-		$image=$result['image'];
-		
-
-?>
+       
+   
 
 
+        <div class="content">
 
-<form class="was-validated" method="POST">
-<table>
-<div class="container-fluid">
-<hr>
-<div class="row">
-		<div class="col-md-20">
-			<h3 class="text-center text-info">Update Produit</h3>
-            <hr>
+<table class="table table-striped b-t b-light">
+    <form method="POST" action="livaff.php">
+        <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
+        <input type="submit" value="Rechercher"  class="btn btn-primary">
+    </form>
+    <a href="tri.php">
+    <input type="submit" value="trier Par Prix  "  class="btn btn-primary">
+    </a>
+   
+    <thead>
+    <tr>
+        <th colspan="6"></th>
+    </tr>
+    <tr>
+        <th>id</th>
+        <th>Nom produit</th>
+        <th>image</th>
+        <th>prix</th>
+        <th>quantité</th>
+        <th>description</th>
+        <th>catégorie</th>
+      
+        <th style="width:30px;"></th>
+    </tr>
+    </thead>
+    <tbody>
 
-<div class="form-group">
-<input class="form-control" required placeholder="Nom" type="text" name="nom" value="<?PHP echo $nom ?>">
-</div>
+    <?php
 
-<div class="form-group">
-<input class="form-control" required  placeholder="Prix" type="text" name="prix" value="<?PHP echo $prix ?>">
-</div>
 
-<div class="form-group">
-<input class="form-control" required  placeholder="Quantité " type="text" name="quantite" value="<?PHP echo $quantite ?>">
-</div>
+        foreach($prd as $p){
+            ?>
 
-<div class="form-group">
+            <tr>
+                <td><span class="text-ellipsis"><?php echo $p['id']; ?></span></td>
+                <td><span class="text-ellipsis"><?php echo $p['nom']; ?></span></td>
+                <td><span class="text-ellipsis"> <img src="images/avatar/<?=  $p['image'] ?>" widht="40" height="30" alt=""></span></td>
+               
+                <!--?php echo $p['image']; ?>-->
+                <td><span class="text-ellipsis"><?php echo $p['prix']; ?></span></td>
+                <td><span class="text-ellipsis"><?php echo $p['quantite']; ?></span></td>
+                <td><span class="text-ellipsis"><?php echo $p['description']; ?></span></td>
+                <td><span class="text-ellipsis"><?php echo $p['cat']; ?></span></td>
+                <td> <a href="supprimerprd.php?id=<?php echo $p['id']; ?>">
+                        <input type="button" value="Remove"> </a></td>
+               
+                <td> <a href="modifierproduit.php?id=<?php echo $p['id']; ?>">
+                 <input type="button" value="Edit"> </a></td>
 
-<select  class="dropdown-header" name="cat">
-		<?PHP
-		 foreach($listecat as $row){
-		  ?>
-		  <option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
-		  </option>
-		  <?PHP } ?>
-	</select>
+               
 
-</div>
-<div class="form-group">
-<textarea class="form-control" required placeholder="Description" name="description" value="<?PHP echo $description ?>"></textarea>
-</div>
-<div class="row form-group">
-  <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
-    <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
-       </div>
+             
 
-<div class="form-group">
-<input  class="btn btn-success btn-block" type="submit" name="modifier" value="modifier">
-</div>
+               </tr>
+            <?php
+        }
 
-<div class="form-group">
-<input  type="hidden" name="id" value="<?PHP echo $_GET['id'];?>">
-</div>
 
-</div>
 
-</div>
-</div>
+    ?>
+
+    </tbody>
 </table>
-</form>
-<?PHP
-	
-}
-if (isset($_POST['modifier'])){
-	$produit=new produit($_POST['id'],$_POST['nom'],$_POST['prix'],$_POST['quantite'],$_POST['description'],$_POST['cat'],$_POST['image']);
-	$prdC->modifierProduit($produit,$_POST['id']);
-	echo $_POST['id'];
-    echo ("<script> window.location.replace(\"livaff.php\")</script>");
-}
-?>
-</body>
 
+
+</div>
 
 
       <!-- /.container-fluid -->
