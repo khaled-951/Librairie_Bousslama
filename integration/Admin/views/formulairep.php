@@ -1,8 +1,5 @@
 <?PHP
 session_start();
-include "../core/categorieC.php";
-$cat1C=new categorieC();
-$listecat=$cat1C->afficherCategorie();
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -217,14 +214,11 @@ $listecat=$cat1C->afficherCategorie();
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
                                         <div class="col-12 col-md-9">
-
-                                        <select  class="dropdown-header" name="idcat">
-                                                <?PHP
-                                                 foreach($listecat as $row){
-                                                  ?>
-                                              	<option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
-	                                              </option>
-	                                              <?PHP } ?>
+                                            <select name="cat" id="select" class="form-control-label">
+                                                <option value="0">Veuillez choisir la catégorie</option>
+                                                <option value="1">beau-livre</option>
+                                                <option value="2">cat2</option>
+                                                <option value="3">cat3</option>
                                             </select>
                                         </div>
                 

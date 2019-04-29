@@ -269,7 +269,7 @@ $lst=$livraisonC->afficheliv();
         <!-- Content -->
 
         <div class="content">
-
+        <div id="printDiv">
             <table class="table table-striped b-t b-light">
                 <form method="POST" action="livaff1.php">
                     <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
@@ -278,7 +278,6 @@ $lst=$livraisonC->afficheliv();
                 <a href="trier.php">
                 <input type="submit" value="trier Par Nom Destinataire  "  class="btn btn-primary">
                 </a>
-
                 <thead>
                 <tr>
                     <th colspan="7"></th>
@@ -319,19 +318,28 @@ $lst=$livraisonC->afficheliv();
                             <td> <a href="suppliv.php?id=<?php echo $p['id_livraison']; ?>">
                                     <input type="button" value="Remove"> </a></td>
 
+
                            </tr>
+
                         <?php
                     }
 
 
 
                 ?>
+               
+    
+    
+    
+   <button id="doPrint" class="btn btn-primary" >Print</button>
+    </div>
 
                 </tbody>
             </table>
 
 
         </div>
+
         <!-- /.content -->
         <!-- /.site-footer -->
     <!-- /#right-panel -->
@@ -418,6 +426,7 @@ $lst=$livraisonC->afficheliv();
 
             });
             // cellPaiChart End
+
             // Line Chart  #flotLine5
             var newCust = [[0, 3], [1, 5], [2,4], [3, 7], [4, 9], [5, 3], [6, 6], [7, 4], [8, 10]];
 
@@ -553,5 +562,17 @@ $lst=$livraisonC->afficheliv();
             // Bar Chart #flotBarChart End
         });
     </script>
+<script >
+        document.getElementById("doPrint").addEventListener("click", function() {
+     var printContents = document.getElementById('printDiv').innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+});
+    </script>
+
+    
 </body>
+
 </html>
