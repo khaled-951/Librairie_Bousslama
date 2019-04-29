@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<?PHP
-include "core/AvisC.php";
-$Avis1C=new AvisC();
-$listeAviss=$Avis1C->afficherAviss();
 
-//var_dump($listeAviss->fetchAll());
-?>
 
 <html lang="en">
 
@@ -539,7 +533,7 @@ $listeAviss=$Avis1C->afficherAviss();
 								<li><a href="index.html">Home</a></li>
 								<li><a href="products.html">Products</a></li>
 								<li><a href="product-page.html">Product Details</a></li>
-								<li><a href="checkout.html">Checkout</a></li>
+								<li><a href="afficherAvis.php">Avis</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -556,7 +550,7 @@ $listeAviss=$Avis1C->afficherAviss();
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="#">Home</a></li>
-				<li class="active">Checkout</li>
+				<li class="active">Avis</li>
 			</ul>
 		</div>
 	</div>
@@ -577,20 +571,21 @@ $listeAviss=$Avis1C->afficherAviss();
 								<h3 class="title">Avis</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="Sujet" placeholder="Sujet" required>
+								<input class="input" type="text" name="Sujet" placeholder="Sujet">
 							</div>
 							<div class="row form-group">
                                         <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Commentaire</label></div>
-                                        <div class="col-12 col-md-9"><textarea name="commentaire" id="textarea-input" rows="9" placeholder="Content..." required class="form-control"></textarea></div>
+                                        <textarea   name="commentaire" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur();"  id="autre" class="form-control"  required pattern="[0-9a-zA-Z,/. ]{3,12}" placeholder="Comment" ></textarea>
                                     </div>
                                     <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm" name="ajouter" >
-                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                    <i class="fa fa-dot-circle-o"></i> Enregistrer
                                 </button>
                                 <button type="reset" class="btn btn-danger btn-sm">
                                     <i class="fa fa-ban"></i> Reset
                                 </button>
                             </div>
+                        </form>
 							<div class="form-group">
 								<div class="input-checkbox">
 									<input type="checkbox" id="register">
@@ -615,12 +610,10 @@ $listeAviss=$Avis1C->afficherAviss();
 							<table class="shopping-cart-table table">
 								<thead>
 									<tr>
-										<th>Avis</th>
-										<th></th>
-										<th class="text-center">id</th>
-										<th class="text-center">Subject</th>
-										<th class="text-center">Comment</th>
-										<th class="text-right"></th>
+										<th class="text">id</th>
+										<th class="text">Subject</th>
+										<th class="text">Comment</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -632,7 +625,10 @@ foreach($listeAviss as $row){
 	<td><?PHP echo $row['Sujet']; ?></td>
 	<td><?PHP echo $row['commentaire']; ?></td>
 	<td><form method="POST" action="supprimerAvis.php">
-	<input type="submit" name="supprimer" value="supprimer">
+	<button type="submit" class="btn btn-remove btn-sm">
+                                    <i class="fa fa-ban"></i> Remove
+                                </button>
+
 	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
 	</form>
 	</td>
@@ -641,138 +637,12 @@ foreach($listeAviss as $row){
 	<?PHP
 }
 ?>
-
-								</tbody>
-								<tfoot>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>SUBTOTAL</th>
-										<th colspan="2" class="sub-total">$97.50</th>
-									</tr>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>SHIPING</th>
-										<td colspan="2">Free Shipping</td>
-									</tr>
-									<tr>
-										<th class="empty" colspan="3"></th>
-										<th>TOTAL</th>
-										<th colspan="2" class="total">$97.50</th>
-									</tr>
-								</tfoot>
-							</table>
-							<div class="pull-right">
-								<button class="primary-btn">Place Order</button>
-							</div>
-						</div>
-
-					</div>
-				</form>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
+</tbody>
+								
+							
 	<!-- /section -->
 
 	<!-- FOOTER -->
-	<footer id="footer" class="section section-grey">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<!-- footer logo -->
-						<div class="footer-logo">
-							<a class="logo" href="#">
-		            <img src="./img/logo.png" alt="">
-		          </a>
-						</div>
-						<!-- /footer logo -->
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-
-						<!-- footer social -->
-						<ul class="footer-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-						<!-- /footer social -->
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">My Account</h3>
-						<ul class="list-links">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">My Wishlist</a></li>
-							<li><a href="#">Compare</a></li>
-							<li><a href="#">Checkout</a></li>
-							<li><a href="#">Login</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<div class="clearfix visible-sm visible-xs"></div>
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Customer Service</h3>
-						<ul class="list-links">
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Shiping & Return</a></li>
-							<li><a href="#">Shiping Guide</a></li>
-							<li><a href="#">FAQ</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer subscribe -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Stay Connected</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-						<form>
-							<div class="form-group">
-								<input class="input" placeholder="Enter Email Address">
-							</div>
-							<button class="primary-btn">Join Newslatter</button>
-						</form>
-					</div>
-				</div>
-				<!-- /footer subscribe -->
-			</div>
-			<!-- /row -->
-			<hr>
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<!-- footer copyright -->
-					<div class="footer-copyright">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</div>
-					<!-- /footer copyright -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</footer>
-	<!-- /FOOTER -->
-
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -780,7 +650,7 @@ foreach($listeAviss as $row){
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
-	<script language="javascript" type="text/javascript">
+<script language="javascript" type="text/javascript">
 									function calculeLongueur(){
    										var iLongueur, iLongueurRestante;
    										iLongueur = document.getElementById('autre').value.length;
@@ -797,7 +667,6 @@ foreach($listeAviss as $row){
       								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
 									}
 							</script>
-
 </body>
 
 </html>

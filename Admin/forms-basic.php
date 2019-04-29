@@ -1,19 +1,12 @@
+<?php
+    session_start(); 
+                if (!isset($_SESSION['userid']) || !isset($_SESSION['role']) )
+                {                if($_SESSION['role'] != "Admin")
+                   { header("Location: loginback.php"); 
+                }
+              }
+    ?>
 <!doctype html>
-<?PHP
-include "core/AnnoncesC.php";
-$Annonces1C =new AnnoncesC();
-$listeAnnonces=$Annonces1C->afficherAnnonces();
-
-
-if(empty($_POST['search'])==false){
- $x=$_POST['search'];
-    $listeAnnonces=$Annonces1C->rechercherAnnonces($x);}
-
-    else
-$listeAnnonces=$Annonces1C->afficherAnnonces();
-
-//var_dump($listeEmployes->fetchAll());
-?>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -69,17 +62,17 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
+                    <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Annonces</a>
+                    <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic1.php">Ajouter Annonces</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Ajouter Annonces</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a href="afficherAnnonces.php">Afficher Annonces</a></li>
                         </ul>
                     </li>
@@ -252,8 +245,8 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Table</a></li>
-                                    <li class="active">Basic table</li>
+                                    <li><a href="#">Forms</a></li>
+                                    <li class="active">Basic</li>
                                 </ol>
                             </div>
                         </div>
@@ -263,87 +256,38 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
         </div>
 
         <div class="content">
-            
-            <table class="table table-striped b-t b-light">
-                <form method="POST" action="afficherAnnonces.php">
-                    <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
-                    <input type="submit" value="Rechercher"  class="btn btn-primary">
-                </form>
             <div class="animated fadeIn">
-                <div class="row">
+
+
+                
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Annonces</strong>
+                                <strong>Annonces</strong> Elements
                             </div>
-                            <div class="table-stats order-table ov-h">
-                                <table class="table ">
-                                    <thead>
-                                        <tr>
-                                            <th class="serial">id</th>
-                                            <th class="avatar">Type</th>
-                                            <th>Description</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <?PHP
-	foreach($listeAnnonces as $row){
-	?>
-	<tr>
-	<td><?PHP echo $row['id']; ?></td>
-	<td><?PHP echo $row['type']; ?></td>
-	<td><?PHP echo $row['Description']; ?></td>
-	<td><form method="POST" action="supprimerAnnonces.php">
-	<input type="submit" name="supprimer" value="supprimer">
-	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
-	</form>
-	</td>
-	<td><a href="modifierAnnonces.php?id=<?PHP echo $row['id']; ?>">
-	Modifier</a></td>
-	</tr>
-	<?PHP
-}
-			?>
-                                    </tbody>
-                                </table>
-                            </div> <!-- /.table-stats -->
+                            <div class="card-body card-block">
+                                <form action="ajoutAnnonces.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Type</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="text-input" name="Type" placeholder="Text" required class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Description</label></div>
+                                        <textarea   name="Description" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur();"  id="autre" class="form-control"  required pattern="[0-9a-zA-Z,/. ]{3,12}" placeholder="Informations About the Events" ></textarea>
+                                    </div>
+                                    <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" name="ajouter" >
+                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Reset
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    
-                </div>
 
-                
-                
-                
-            </div>
-
-
-
-
-            
-            
-        </div>
-    </div><!-- .animated -->
-</div><!-- .content -->
-
-<div class="clearfix"></div>
-
-<footer class="site-footer">
-    <div class="footer-inner bg-white">
-        <div class="row">
-            <div class="col-sm-6">
-                Copyright &copy; 2018 Ela Admin
-            </div>
-            <div class="col-sm-6 text-right">
-                Designed by <a href="https://colorlib.com">Colorlib</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-</div><!-- /#right-panel -->
-
+                                    
+                                                       
 <!-- Right Panel -->
 
 <!-- Scripts -->
@@ -352,6 +296,23 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="assets/js/main.js"></script>
+<script language="javascript" type="text/javascript">
+									function calculeLongueur(){
+   										var iLongueur, iLongueurRestante;
+   										iLongueur = document.getElementById('autre').value.length;
+   										if (iLongueur>10) {
+     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,20);
+      									iLongueurRestante = 0;
+   										}
+   										else {
+     							 		iLongueurRestante = 20 - iLongueur;
+   									}
+   									if (iLongueurRestante <= 1)
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
+   									else
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
+									}
+							</script>
 
 
 </body>
