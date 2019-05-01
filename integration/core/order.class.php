@@ -57,7 +57,10 @@ class ClassOrder{
 				$req->bindValue(':Product_ID', $product['Product_id']);
 				$req->execute();
 				
-				
+				$req = $this->DB->prepare("Update produit set quantite = quantite - :product_quantity where id = :Product_ID");
+				$req->bindValue(':product_quantity', $product['product_quantity']);
+				$req->bindValue(':Product_ID', $product['Product_id']);
+				$req->execute();
 			}
 		}
 	}

@@ -55,13 +55,13 @@ if(	isset($_SESSION['user_id']) && isset($_GET['Delete_All']) )
 								<input class="input" type="text" name="email" placeholder="Email" id="email" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address" onchange="test()" >
+								<input class="input" type="text" name="address" placeholder="Address" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City" onchange="test()" >
+								<input class="input" type="text" name="city" placeholder="City" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country" onchange="test()" >
+								<input class="input" type="text" name="country" placeholder="Country" >
 							</div>
 							<div class="form-group">
 								<input class="input" type="number" name="zip-code" placeholder="ZIP Code" id="zip-code" onchange="test()" >

@@ -40,3 +40,8 @@ function test()
 		document.getElementById("botna").disabled = false;
 	}
 }
+
+function lol()
+{
+		alert("nice");
+}
