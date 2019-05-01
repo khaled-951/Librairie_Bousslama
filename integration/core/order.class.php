@@ -42,8 +42,6 @@ class ClassOrder{
 			$req->execute();
 			
 			$order_id = $req->fetchAll();
-			var_dump($products);
-			
 			$pp=array();
 			for($i=0; $i < count($products) - 1 ; $i++)
 			{
@@ -57,7 +55,6 @@ class ClassOrder{
 			
 			$products=$pp;
 			
-			var_dump($products);
 		foreach($products as $product)
 		{
 			
