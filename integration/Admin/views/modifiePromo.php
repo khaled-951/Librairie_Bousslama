@@ -98,7 +98,7 @@ session_start();
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="indexB.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -126,32 +126,12 @@ session_start();
       <li class="nav-item">
         <a class="nav-link" href="check_out.php">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Promotion</span></a>
+          <span>Promo</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="checkout_events.php">
+        <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>evenement</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="forms-basic.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Annonce</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="formulairep.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Produit</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="formulairec.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Categorie</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="forms-basic1.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Livreur</span></a>
+          <span>Tables</span></a>
       </li>
     </ul>
 
@@ -167,117 +147,129 @@ session_start();
           <li class="breadcrumb-item active">Overview</li>
         </ol>
 
+        <!-- Icon Cards-->
+      
+
+		<HTML>
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<?PHP
+ 
+include "../core/promoC.php";
+if (isset($_GET['id'])){
+	$promoC=new PromoC();
+    $result=$promoC->recupererPromo($_GET['id']);
+	foreach($result as $row){
+		$id=$row['id'];
+		$idProd=$row['idProd'];
+		$date_debut=$row['date_debut'];
+		$date_fin=$row['date_fin'];
+		$prix_nouveau=$row['prix_nouveau'];
+		$description=$row['description'];
+?>
+
+<?php
+                                    $produit1C=new PromoC();
+                                    $listeCat=$produit1C->afficherproduits();
+                                    ?>
+<form class="was-validated" method="POST">
+<table>
+<div class="container-fluid">
+<hr>
+<div class="row">
+		<div class="col-md-3">
+			<h3 class="text-center text-info">Update Products</h3>
+            <hr>
+<div class="form-group">
+
+<input class="form-control" required pattern="[0-9]{1,12}" placeholder="Enter the Id" type="text" name="id" value="<?PHP echo $id ?>">
+</div>
 
 
 
 
-        <?PHP
- 
- include "../core/promoC.php";
- if (isset($_GET['id'])){
-   $promoC=new PromoC();
-     $result=$promoC->recupererPromo($_GET['id']);
-   foreach($result as $row){
-     $id=$row['id'];
-     $idProd=$row['idProd'];
-     $date_debut=$row['date_debut'];
-     $date_fin=$row['date_fin'];
-     $prix_nouveau=$row['prix_nouveau'];
-     $description=$row['description'];
- ?>
- 
- <?php
-                                     $produit1C=new PromoC();
-                                     $listeCat=$produit1C->afficherproduits();
-                                     ?>
- <form class="was-validated" method="POST">
- <table>
- <div class="container-fluid">
- <hr>
- <div class="row">
-     <div class="col-md-3">
-       <h3 class="text-center text-info">Update Products</h3>
-             <hr>
- <div class="form-group">
- 
- <input class="form-control" required pattern="[0-9]{1,12}" placeholder="Enter the Id" type="text" name="id" value="<?PHP echo $id ?>">
- </div>
- 
- 
- 
- 
- 
- 
- <div class="form-group">
- 
- <select  class="dropdown-header" name="idProd">
-   <?PHP
-     foreach($listeCat as $row){
-         ?>
-   <option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
-   </option>
-   <?PHP } ?>
- </select> </div>
- 
- 
- 
- <div class="form-group">
- <input class="form-control" required placeholder="date_debut"  type="Date" name="date_debut" value="<?PHP echo $date_debut ?>">
- </div>
- 
- <div class="form-group">
- <input class="form-control" required placeholder="date_fin"  type="Date" name="date_fin" value="<?PHP echo $date_fin ?>">
- </div>
- 
- 
- 
- <div class="form-group">
- <input class="form-control" required pattern="[0-9.]{1,12}" placeholder="Enter your new Price" type="number" name="prix_nouveau" value="<?PHP echo $prix_nouveau ?>">
- </div>
- 
- 
- 
- 
- 
- 
- 
- 
- <div class="form-group">
- <input type="text"  class="form-control" required pattern="[0-9a-zA-Z-\.]{3,300}" placeholder="Informations About the products" name="description" value="<?PHP echo $description ?>">
- </div>
- 
- 
- <!--<div class="form-group">
- </div>-->
- 
- <div class="form-group">
- <input  class="btn btn-success btn-block" type="submit" name="modifier" value="Update">
- </div>
- 
- <div class="form-group">
- <input  type="hidden" name="id_ini" value="<?PHP echo $_GET['id'];?>">
- </div>
- </table>
- </div>
- 
- 
- </form>
- 
- <?PHP
-   }
- }
- if (isset($_POST['modifier'])){
-   $Promo=new Promo($_POST['id'],$_POST['idProd'],$_POST['date_debut'],$_POST['date_fin'],$_POST['prix_nouveau'],$_POST['description']);
-   $promoC->modifiePromo($Promo,$_POST['id_ini']);
-   echo $_POST['id_ini'];
-   echo ("<script> window.location.replace(\"check_out.php\")</script>");
- 
- }
- 
- ?>
- </body>
 
 
+<div class="form-group">
+
+<select  class="dropdown-header" name="idProd">
+	<?PHP
+    foreach($listeCat as $row){
+        ?>
+	<option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
+	</option>
+	<?PHP } ?>
+</select> </div>
+
+
+
+<div class="form-group">
+<input class="form-control" required placeholder="date_debut"  type="Date" name="date_debut" value="<?PHP echo $date_debut ?>">
+</div>
+
+<div class="form-group">
+<input class="form-control" required placeholder="date_fin"  type="Date" name="date_fin" value="<?PHP echo $date_fin ?>">
+</div>
+
+
+
+<div class="form-group">
+<input class="form-control" required pattern="[0-9.]{1,12}" placeholder="Enter your new Price" type="number" name="prix_nouveau" value="<?PHP echo $prix_nouveau ?>">
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+<input type="text"  class="form-control" required pattern="[0-9a-zA-Z-\.]{3,300}" placeholder="Informations About the products" name="description" value="<?PHP echo $description ?>">
+</div>
+
+
+<!--<div class="form-group">
+</div>-->
+
+<div class="form-group">
+<input  class="btn btn-success btn-block" type="submit" name="modifier" value="Update">
+</div>
+
+<div class="form-group">
+<input  type="hidden" name="id_ini" value="<?PHP echo $_GET['id'];?>">
+</div>
+</table>
+</div>
+
+
+</form>
+
+<?PHP
+	}
+}
+if (isset($_POST['modifier'])){
+	$Promo=new Promo($_POST['id'],$_POST['idProd'],$_POST['date_debut'],$_POST['date_fin'],$_POST['prix_nouveau'],$_POST['description']);
+	$promoC->modifiePromo($Promo,$_POST['id_ini']);
+	echo $_POST['id_ini'];
+	echo ("<script> window.location.replace(\"check_out.php\")</script>");
+
+}
+
+?>
+</body>
+</HTMl>
 
 
 

@@ -89,56 +89,26 @@ class LivreurC
             echo " Erreur ! ".$e->getMessage();
         }
     }
-    function recupererlivreur($id_livreur)
+    
+
+   function nombre_livreur()
     {
-            $sql="SELECT * from livreur where id_livreur=$id_livreur";
-            $db = config::getConnexion();
-            try
-            {
-                $liste=$db->query($sql);
-                $liste->execute();
-                return $liste;
-            }
-            catch (Exception $e)
-            {
-                die('Erreur: '.$e->getMessage());
-            }
-    }
-   function rechercherListeLivreurs($tarif)
-   {
-        $sql="SELECT * from livreur where nom=$tarif";
-        $db = config::getConnexion();
-        try
-        {
-            $liste=$db->query($sql);
-            return $liste;
+        $sql="SELECT COUNT(id_livreur) as id FROM livreur WHERE 1=1";
+        $db=config::getConnexion();
+        try{
+            $query=$db->prepare($sql);
+            $query->execute();
+            $l=$query->fetch();
+            return $l;
         }
-        catch (Exception $e)
+        catch(Exception $e)
         {
             die('Erreur: '.$e->getMessage());
         }
     }
 
-    function getLivreurMoyenneNote($id_livreur)
-    {
-        $sql = "SELECT * FROM note_livreur WHERE id_livreur=:id_l";
-        $c = config::getConnexion();
-        $stmt = $c->prepare($sql);
-        $stmt->bindValue(":id_l", $id_livreur);
-        $stmt->execute();
-        if ($stmt->rowCount() == 0)
-        {
-            return 0;
-        }
-        $count = $stmt->rowCount();
-        $tot = 0;
-        $res = $stmt->fetchAll();
-        foreach($res as $row)
-        {
-            $tot += $row['note'];
-        }
-        return ($tot / $count);
-    }
+
+
 }
 
 ?>

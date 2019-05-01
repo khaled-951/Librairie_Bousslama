@@ -79,7 +79,7 @@ $listeAnnonces=$Annonces1C->afficherAnnonces();
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Annonces</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Ajouter Annonces</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic1.php">Ajouter Annonces</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a href="afficherAnnonces.php">Afficher Annonces</a></li>
                         </ul>
                     </li>

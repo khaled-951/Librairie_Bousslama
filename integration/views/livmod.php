@@ -18,7 +18,7 @@ if (!isset($_POST['livaddd'])){
     $liv=new Livraison($nom,$prenom,$code,$rue,$pays,$tel,$dtl,$dte);
        var_dump($liv);
        $livc->modifierlivraison($liv,(int)$_GET['id']);
-  header('Location: /integration/Admin/views/livaff1.php');
+  header('Location: livaff1.php');
 
 
 

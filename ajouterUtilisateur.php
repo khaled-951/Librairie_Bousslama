@@ -3,7 +3,7 @@ session_start();
 include "../core/categorieC.php";
 $cat1C=new categorieC();
 $listecat=$cat1C->afficherCategorie();
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,6 +126,24 @@ $listecat=$cat1C->afficherCategorie();
           <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
       </li>
+
+       <!-- UTILISATEUR-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Utilisateurs</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="ajouterUtilisateur.php">Ajouter Utilisateur</a>
+            <a class="dropdown-item" href="afficherUtilisateur.php">Afficher Utilisateurs</a>
+            <a class="dropdown-item" href="afficherCommentaires.php">Afficher Commentaires</a>
+            <a class="dropdown-item" href="afficherUtilisateurChart.php">Afficher statistiques</a>
+        </div>
+      </li>
+
+      <!-- FIN UTILISATEUR-->
+
+
       <li class="nav-item">
         <a class="nav-link" href="check_out.php">
           <i class="fas fa-fw fa-chart-area"></i>
@@ -166,101 +184,89 @@ $listecat=$cat1C->afficherCategorie();
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active">Utilisateur / Ajouter Utilisateur </li>
         </ol>
         <!-- Breadcrumbs-->
        
 
-        <!-- Icon Cards-->
+       <div class="page-head">
+          <div class="container-fluid">
+            <div class="row">
+                <div  align="center" border="1px" class="col-md-4">
+                  <h3 class="text-center text-info">Ajouter Utilisateur</h3>
+                    <hr>
+                      <form class="was-validated" action="ajouterUtilisateur1.php" method="POST" >
 
 
-
-
-        <div class="content">
-            <div class="animated fadeIn">
-
-
-
-
-                    <div class="col-lg-6">
-                        <div class="card">
-                        <form id="checkout-form" name="prdadd" class="clearfix" method="POST" action="ajtproduit.php">
-                            <div class="card-header">
-                                <strong>Formulaire</strong> 
-                            </div>
-                            <div class="card-body card-block">
-                                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label class=" form-control-label">Ajouter</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static">Un produit</p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="nom" class=" form-control-label">Nom du produit</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="nom" name="nom" placeholder="Text" class="form-control" required pattern="[a-zA-Z]{3,12}"><small class="form-text text-muted">This is a help text</small></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="quantite" class=" form-control-label">quantite</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="quantite" name="quantite" placeholder="quantite" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
-                                    </div>
-                                  
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="prix" class=" form-control-label">Price Input</label></div>
-                                        <div class="col-12 col-md-9"><input type="prix" id="prix" name="prix" placeholder="Enter Price" class="form-control"><small class="help-block form-text">Please enter your Price</small></div>
-                                    </div>
-                               
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="description" class=" form-control-label">Description</label></div>
-                                        <div class="col-12 col-md-9"><textarea name="description" id="description" rows="9" placeholder="Content..." class="form-control"></textarea></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
-                                        <div class="col-12 col-md-9">
-
-                                        <select  class="dropdown-header" name="idcat">
-                                                <?PHP
-                                                 foreach($listecat as $row){
-                                                  ?>
-                                              	<option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
-	                                              </option>
-	                                              <?PHP } ?>
-                                            </select>
-                                        </div>
-                
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
-                                        <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
-                                    </div>
-                                   
-                                </form>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Submit
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Reset
-                                </button>
-                            </div>
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control"  type="text" name="id" id="id" required pattern="[0-9]{1,12}" placeholder="ID"></td>
+                              <td><span style="color: red" id="erreuridd"></span></td>
+                            </tr>
                         </div>
-                        
-                    </div>
 
-                    
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" name="nom" id="nom" type="text" placeholder="NOM" required=""></td>
+                              <td><span style="color: red" id="erreurnom"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="prenom" id="prenom" placeholder="PRENOM" required=""></td>
+                              <td><span style="color: red" id="erreurprenom"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="date" name="dateNaissance" class="form-control" name="dateNaissance" required placeholder="DATE NAISSANCE">
+                        </div>
+
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="sexe" id="sexe" placeholder="SEXE" required=""></td>
+                              <td><span style="color: red" id="erreursexe"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="email" name="mail" class="form-control" required="" placeholder="ADRESSE MAIL">
+                        </div>
+
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="adresse" id="adresse" placeholder="ADRESSE" required=""></td>
+                              <td><span style="color: red" id="erreuradresse"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="number" name="numTel" id="numTel" class="form-control" required pattern="[0-9]{6,12}" placeholder="NUMERO DE TELEPHONE" >
+                        </div>
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="password" name="mdp" id="mdp" placeholder="MOT DE PASSE" required=""></td>
+                              <td><span style="color: red" id="erreurmdp"></span></td>
+                            </tr>
+                        </div>
+
+
                         
-                    </div>
-                    
+                        <div class="form-group">
+                          <input type="submit" name="add" class="btn btn-primary btn-block" value="Add" onclick=" return executerverif()">
+                        </div> 
+                      </form>
+                      <script src="ajouterUtilisateur.js"></script>
+                  </div>
                 </div>
-
-                
-               
-               
             </div>
+          </div>
 
 
-        </div><!-- .animated -->
-    </div><!-- .content -->
 
     <div class="clearfix"></div>
 

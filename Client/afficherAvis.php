@@ -581,7 +581,7 @@ $listeAviss=$Avis1C->afficherAviss();
 							</div>
 							<div class="row form-group">
                                         <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Commentaire</label></div>
-                                        <div class="col-12 col-md-9"><textarea name="commentaire" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                                        <textarea   name="commentaire" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur();"  id="autre" class="form-control"  required pattern="[0-9a-zA-Z,/. ]{3,12}" placeholder="Comment" ></textarea>
                                     </div>
                                     <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm" name="ajouter" >
@@ -656,7 +656,23 @@ foreach($listeAviss as $row){
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
-
+<script language="javascript" type="text/javascript">
+									function calculeLongueur(){
+   										var iLongueur, iLongueurRestante;
+   										iLongueur = document.getElementById('autre').value.length;
+   										if (iLongueur>10) {
+     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,20);
+      									iLongueurRestante = 0;
+   										}
+   										else {
+     							 		iLongueurRestante = 20 - iLongueur;
+   									}
+   									if (iLongueurRestante <= 1)
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
+   									else
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
+									}
+							</script>
 </body>
 
 </html>

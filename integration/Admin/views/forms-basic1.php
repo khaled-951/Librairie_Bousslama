@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -236,7 +236,7 @@ session_start();
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" onclick="return compar()" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
                                 <button type="reset" class="btn btn-danger btn-sm">
@@ -322,6 +322,31 @@ session_start();
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
+  <script language="javascript">
+function compar()
+{
+var age = document.getElementById('age').value
+var num_tel = document.getElementById('num_tel').value
+
+
+
+
+
+if(age <= 18)
+{
+    alert('Le prix doit etre superieure à 18 !!');
+    return false ;
+}
+
+if(num_tel == 8)
+{
+    alert('La quantité doit etre superieure à 8 !!');
+    return false ;
+}
+return true ;
+
+}
+</script>
 
 </body>
 

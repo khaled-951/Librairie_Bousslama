@@ -12,7 +12,7 @@ $livraisonC=new livraisonC();
 /*$x=0+$_GET['id'];
 var_dump($x);*/
 $livraisonC->supprimeliv((int)$_GET['id']);
-header('Location: livaff.php');
+header('Location: livaff1.php');
 
 
 ?>

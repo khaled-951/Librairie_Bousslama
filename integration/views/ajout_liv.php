@@ -577,16 +577,16 @@
 								<input class="input" required pattern="[a-zA-Z]{3,12}" type="text" name="prenom_destinataire" placeholder="prenom destinataire">
 							</div>
 							<div class="form-group">
-								<input class="input" required pattern="[a-zA-Z-\.]{3,12}" type="number" name="code_postale" placeholder="code postale exp:1112">
+								<input class="input" type="number" name="code_postale" placeholder="code postale exp:1112">
 							</div>
 							<div class="form-group">
-								<input class="input" required pattern="[a-zA-Z-\.]{3,12}" type="text" name="rue_et_ville" placeholder="rue et ville">
+								<input class="input"  type="text" name="rue_et_ville" placeholder="rue et ville">
 							</div>
 							<div class="form-group">
 								<input class="input" required pattern="[a-zA-Z-\.]{3,12}" type="text" name="pays" placeholder="pays">
 							</div>
 							<div class="form-group">
-								<input class="input" required pattern="[0-9-\.]{3,12}" type="number" name="tel_gsm" placeholder="telephone" >
+								<input class="input"  type="number" name="tel_gsm" placeholder="telephone" >
 							</div>
 							<div class="form-group">
 								<input type="date" required name="date_demande_livraison">
@@ -596,7 +596,8 @@
                             </div>
 						</div>
                         <div class="pull-left">
-                            <button onclick="tryy()" type="submit"  class="primary-btn">Ajouter</button>
+                            <button type="submit" value="Ajouter"  class="primary-btn" onclick= "return compar()">Ajouter</button>
+                            
                         </div>
 					</div>
 
@@ -719,6 +720,32 @@
 	<script src="js/main.js"></script>
     <script src="js/liv.js"></script>
 
+<script language="javascript">
+function compar()
+{
+var code_postale = document.getElementById('code_postale').value
+var tel_gsm = document.getElementById('tel_gsm').value
+
+
+
+
+
+
+if(tel_gsm != 8)
+{
+    alert('Le numero doit etre superieure egale a 8!!');
+    return false ;
+}
+
+if(code_postale != 4)
+{
+    alert('La code postale doit etre composé de 4 chiffres !!');
+    return false ;
+}
+return true ;
+
+}
+</script>
 </body>
 
 </html>
