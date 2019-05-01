@@ -46,28 +46,28 @@ if(	isset($_SESSION['user_id']) && isset($_GET['Delete_All']) )
 								<h3 class="title">Billing Details</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" id="first-name" >
+								<input class="input" type="text" name="first-name" placeholder="First Name" id="first-name" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name" id="last-name" >
+								<input class="input" type="text" name="last-name" placeholder="Last Name" id="last-name" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" id="email" >
+								<input class="input" type="text" name="email" placeholder="Email" id="email" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address">
+								<input class="input" type="text" name="address" placeholder="Address" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City">
+								<input class="input" type="text" name="city" placeholder="City" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country">
+								<input class="input" type="text" name="country" placeholder="Country" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" id="zip-code" >
+								<input class="input" type="number" name="zip-code" placeholder="ZIP Code" id="zip-code" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone" id="tel">
+								<input class="input" type="number" name="tel" placeholder="Telephone" id="tel" onchange="test()" >
 							</div>
 						</div>
 					</div>
@@ -75,7 +75,7 @@ if(	isset($_SESSION['user_id']) && isset($_GET['Delete_All']) )
 					<div class="col-md-12">
 						<div class="order-summary clearfix">
 							<div class="pull-right">
-								<input type="submit" class="primary-btn" value="Place Order" onclick="test()" ></input>
+								<input type="submit" class="primary-btn" value="Place Order" id="botna" onclick="test()" disabled ></input>
 							</div>
 						</div>
 

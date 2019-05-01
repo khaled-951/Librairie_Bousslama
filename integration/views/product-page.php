@@ -18,7 +18,7 @@
 
 
 <?php
-      include "../core/produitC.php";
+      //include "../core/produitC.php";
 if(isset($_GET['details'])){
 
     

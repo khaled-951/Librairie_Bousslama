@@ -56,6 +56,8 @@ class ClassOrder{
 				$req->bindValue(':user_id', $user_id);
 				$req->bindValue(':Product_ID', $product['Product_id']);
 				$req->execute();
+				
+				
 			}
 		}
 	}

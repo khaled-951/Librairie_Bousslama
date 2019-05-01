@@ -216,19 +216,17 @@ $listecat=$cat1C->afficherCategorie();
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
-                                   
-                                          <div class="col-12 col-md-9">
+                                        <div class="col-12 col-md-9">
 
-                                        <select  class="dropdown-header" name="cat">
+                                        <select  class="dropdown-header" name="idcat">
                                                 <?PHP
                                                  foreach($listecat as $row){
                                                   ?>
-                                              	<option value="<?PHP echo $row['nom']; ?>"><?PHP echo $row['nom']; ?>
+                                              	<option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
 	                                              </option>
 	                                              <?PHP } ?>
                                             </select>
                                         </div>
-                                        
                 
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
@@ -238,7 +236,7 @@ $listecat=$cat1C->afficherCategorie();
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" onclick="return compar()">
+                                <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
                                 <button type="reset" class="btn btn-danger btn-sm">
@@ -254,31 +252,6 @@ $listecat=$cat1C->afficherCategorie();
                     </div>
                     
                 </div>
-                <script language="javascript">
-function compar()
-{
-var quantite = document.getElementById('quantite').value
-var prix = document.getElementById('prix').value
-
-
-
-
-
-if(prix <= 0)
-{
-    alert('Le prix doit etre superieure à 0 !!');
-    return false ;
-}
-
-if(quantite <= 0)
-{
-    alert('La quantité doit etre superieure à 0 !!');
-    return false ;
-}
-return true ;
-
-}
-</script>
 
                 
                

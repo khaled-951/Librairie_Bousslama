@@ -1,5 +1,6 @@
 <?php
 
+include_once 'produitC.php' ;
 class ClassPanier{
 	
 	private $DB;
@@ -14,7 +15,11 @@ class ClassPanier{
 		$req = $this->DB->prepare("select * from produit where id = :product_id");
 			$req->bindValue(':product_id', $product_id) ;
 			$req->execute();
-		if ($quantity > 0 && !empty($req->fetchAll()))
+			
+			$test = new ProduitC() ;
+			$test = $test->Number($product_id)['QTE'] ;
+			$test = (int)$test ;
+		if ($quantity > 0 && !empty($req->fetchAll()) && $test >= (int)$quantity )
 		{
 			$req = $this->DB->prepare("select * from cart where user_id = :user_id AND product_id = :product_id");
 			$req->bindValue(':user_id', $user_id);
