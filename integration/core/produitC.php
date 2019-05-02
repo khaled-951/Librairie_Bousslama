@@ -126,12 +126,13 @@ class ProduitC {
             die('Erreur: '.$e->getMessage());
         }
 	}
-	function Number()
+	function Number($id)
     {
-        $sql="SELECT COUNT(quantite) as QTE FROM produit WHERE 1=1";
+        $sql="SELECT quantite as QTE FROM produit WHERE id=:id";
         $db=config::getConnexion();
         try{
             $query=$db->prepare($sql);
+			$query->bindValue(':id',$id);
             $query->execute();
             $l=$query->fetch();
             return $l;

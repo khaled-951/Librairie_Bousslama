@@ -1,5 +1,6 @@
 <?php
 
+include_once 'produitC.php' ;
 class ClassPanier{
 	
 	private $DB;
@@ -14,7 +15,11 @@ class ClassPanier{
 		$req = $this->DB->prepare("select * from produit where id = :product_id");
 			$req->bindValue(':product_id', $product_id) ;
 			$req->execute();
-		if ($quantity > 0 && !empty($req->fetchAll()))
+			
+			$test = new ProduitC() ;
+			$test = $test->Number($product_id)['QTE'] ;
+			$test = (int)$test ;
+		if ($quantity > 0 && !empty($req->fetchAll()) && $test >= (int)$quantity )
 		{
 			$req = $this->DB->prepare("select * from cart where user_id = :user_id AND product_id = :product_id");
 			$req->bindValue(':user_id', $user_id);
@@ -54,7 +59,11 @@ class ClassPanier{
 	
 	public function update_quantity($user_id, $product_id, $quantity)
 	{
-		if($quantity > 0)
+		$test = new ProduitC() ;
+		$test = $test->Number($product_id)['QTE'] ;
+		$test = (int)$test ;
+		
+		if($quantity > 0 && $test >= (int)$quantity )
 		{	
 				$req = $this->DB->prepare("update cart set product_quantity = :product_quantity where user_id = :user_id AND product_id = :product_id");
 				$req->bindValue(':user_id', $user_id);
@@ -116,6 +125,26 @@ class ClassPanier{
 		$data = $req->fetchAll();
 		
 		return $data[0]['nom'];
+	}
+	
+	public function Get_Product_Image($product_id)
+	{
+		$req = $this->DB->prepare("SELECT DISTINCT image FROM `cart` C, `produit` P WHERE C.Product_id = P.id and P.id = :product_id");
+		$req->bindValue(':product_id', $product_id);
+		$req->execute();
+		$data = $req->fetchAll();
+		
+		return $data[0]['image'];
+	}
+	
+	public function Get_Product_Desc($product_id)
+	{
+		$req = $this->DB->prepare("SELECT DISTINCT description FROM `cart` C, `produit` P WHERE C.Product_id = P.id and P.id = :product_id");
+		$req->bindValue(':product_id', $product_id);
+		$req->execute();
+		$data = $req->fetchAll();
+		
+		return $data[0]['description'];
 	}
 }
 ?>

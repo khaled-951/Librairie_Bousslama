@@ -31,6 +31,7 @@ else
 			</ul>
 		</div>
 	</div>
+	<script src="CS.js"></script>
 	<!-- /BREADCRUMB -->
 
 	<!-- section -->
@@ -46,37 +47,37 @@ else
 								<h3 class="title">Billing Details</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" value=<?php echo $O['billing_name'] ; ?> >
+								<input onchange="lol()" class="input" type="text" name="first-name" placeholder="First Name" value="<?php echo $O['billing_name'] ; ?>"  >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name" value=<?php echo $O['billing_surname'] ; ?> >
+								<input class="input" type="text" name="last-name" placeholder="Last Name" value="<?php echo $O['billing_surname'] ; ?>" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" value=<?php echo $O['billing_email'] ; ?>>
+								<input class="input" type="email" name="email" placeholder="Email" value="<?php echo $O['billing_email'] ; ?>" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address" value=<?php echo $O['billing address'] ; ?>>
+								<input class="input" type="text" name="address" placeholder="Address" value=<?php echo $O['billing address'] ; ?>  >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City" value=<?php echo $O['billing_city'] ; ?>>
+								<input class="input" type="text" name="city" placeholder="City" value=<?php echo $O['billing_city'] ; ?>  >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country" value=<?php echo $O['billing_country'] ; ?>>
+								<input class="input" type="text" name="country" placeholder="Country" value=<?php echo $O['billing_country'] ; ?>  >
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" value=<?php echo $O['billing_postal_code'] ; ?>>
+								<input class="input" type="number" name="zip-code" placeholder="ZIP Code" value="<?php echo $O['billing_postal_code'] ; ?>" onchange="test()" >
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone" value=<?php echo $O['billing_phone'] ; ?>>
+								<input class="input" type="number" name="tel" placeholder="Telephone" value="<?php echo $O['billing_phone'] ; ?>" onchange="test()" >
 							</div>
-							<input class="hidden" name="order_id" value=<?php echo $_GET['order_id'] ; ?>>
+							<input class="hidden" name="order_id" value="<?php echo $_GET['order_id'] ; ?>"   >
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<div class="order-summary clearfix">
 							<div class="pull-right">
-								<input type="submit" class="primary-btn" value="Update Order"></input>
+								<input type="submit" class="primary-btn" value="Update Order" id="botna" onclick="test()" ></input>
 							</div>
 						</div>
 

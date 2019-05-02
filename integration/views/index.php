@@ -4,12 +4,10 @@
 
 	<!-- HOME -->
 	<div id="home">
-	
 		<!-- container -->
 		<div class="container">
 			<!-- home wrap -->
 			<div class="home-wrap">
-			
 				<!-- home slick -->
 				<div id="home-slick">
 					<!-- banner -->

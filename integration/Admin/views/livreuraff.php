@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-    ?>
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,6 +169,7 @@ session_start();
   <?php
 include "../core/LivreurC.php";
 $LivreurC =new LivreurC();
+$lvc=$LivreurC->nombre_livreur();
 /*
 if(empty($_POST['search'])==false){
  $x=$_POST['search'];
@@ -238,10 +239,11 @@ $lst=$LivreurC->afficheE();
 
     ?>
 
+
     </tbody>
 </table>
 
-
+<p><strong>Nombre Des livreurs :</strong> <?php echo $lvc['id'] ?></p>
 </div>
 
 

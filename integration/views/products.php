@@ -1,6 +1,6 @@
 <?php
 require 'Header.php' ;
-require '../core/produitC.php';
+//require '../core/produitC.php';
 $Produit = new ProduitC() ;
 
 ?>
@@ -200,17 +200,8 @@ $Produit = new ProduitC() ;
 						<!-- row -->
 						<div class="row">
 							<!-- Product Single -->
-							<?php
-							$liste=$Produit->afficherProduit ();
-							if (isset($_GET['categorie'])) 
-							{	
-								foreach ($liste as $i => $row)
-								if ($row['cat']!= $_GET['categorie'] )
-								unset($liste[$i]); 
-
-							} 
-							?>
-							<?php  foreach ($liste as  $row) :?>
+							<?php $liste=$Produit->afficherProduit ();?>
+							<?php foreach ($liste as $row ) :?>
 							<div class="col-md-4 col-sm-6 col-xs-6">
 								<div class="product product-single">
 									<div class="product-thumb">

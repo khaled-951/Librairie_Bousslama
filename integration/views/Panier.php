@@ -8,8 +8,8 @@ if(isset($_SESSION['user_id']) && isset($_GET['Product_ID']) && isset($_GET['Pro
 if(isset($_GET['Delete_Cart']) )
 	$Panier->del_cart($_GET['Delete_Cart']);
 
-if(isset($_GET['User_ID']) && isset($_GET['Delete_Product']) )
-	$Panier->delete_product_from_cart($_GET['User_ID'], $_GET['Delete_Product']);
+if(isset($_SESSION['user_id']) && isset($_GET['Delete_Product']) )
+	$Panier->delete_product_from_cart($_SESSION['user_id'], $_GET['Delete_Product']);
 
 if(isset($_SESSION['user_id']) && isset($_GET['Product_ID']) && isset($_GET['Update_Quantity']) )
 	$Panier->update_quantity( $_SESSION['user_id'], $_GET['Product_ID'], $_GET['Update_Quantity']);
@@ -59,18 +59,19 @@ if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET
 								{
 								echo '
 									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
+										<td class="thumb"><img src="./img/'; echo $Panier->Get_Product_image($i['Product_id']); echo '" alt=""></td>
 										<td class="details">
 											<a href="#">'; echo $Panier->Get_Product_Name($i['Product_id']); echo '</a>
 											<ul>
-												<li><span>Size: XL</span></li>
-												<li><span>Color: Camelot</span></li>
+												<li><span>Description: '; echo $Panier->Get_Product_Desc($i['Product_id']); echo '</span></li>
 											</ul>
 										</td>
 										<td class="price text-center"><strong>$'; echo $Panier->Get_Product_Price($i['Product_id']); echo '</strong><br><del class="font-weak"><small>$40.00</small></del></td>
-										<td class="qty text-center"><input class="input" type="number" value="'; echo $i['product_quantity']; echo '"></td>
+										<form action="panier.php" method="GET" ><input name="Product_ID" type="hidden" value="'; echo $i['Product_id']; echo '"/>
+										<td class="qty text-center"><input class="input" name="Update_Quantity" type="number" value="'; echo $i['product_quantity']; echo '"></td>
 										<td class="total text-center"><strong class="primary-color">'; echo $Panier->Get_Product_Price($i['Product_id']) * $i['product_quantity'] ; echo '</strong></td>
-										<td class="text-right"><a href="?User_ID=';echo $_SESSION['user_id']; echo '&Delete_Product='; echo $i['Product_id']; echo '"><button class="main-btn icon-btn" ><i class="fa fa-close"></i></button></a></td>
+										<td class="text-right"><button class="primary-btn">Update</button></td></form>
+										<td class="text-right"><a href="?' ; echo 'Delete_Product='; echo $i['Product_id']; echo '"><button class="main-btn icon-btn" ><i class="fa fa-close"></i></button></a></td>
 									</tr>';
 								}
 								?>
@@ -93,9 +94,6 @@ if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET
 									</tr>
 								</tfoot>
 							</table>
-							<div class="pull-left">
-								<a href="https://google.fr" ><button class="primary-btn">Update</button></a>
-							</div>
 							<div class="pull-right">
 								<a href="checkout.php"><button class="primary-btn">Place Order</button></a>
 							</div>

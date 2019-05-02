@@ -3,7 +3,7 @@ session_start();
 include "../core/categorieC.php";
 $cat1C=new categorieC();
 $listecat=$cat1C->afficherCategorie();
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +101,7 @@ $listecat=$cat1C->afficherCategorie();
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="indexB.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -126,6 +126,24 @@ $listecat=$cat1C->afficherCategorie();
           <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
       </li>
+
+       <!-- UTILISATEUR-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Utilisateurs</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="ajouterUtilisateur.php">Ajouter Utilisateur</a>
+            <a class="dropdown-item" href="afficherUtilisateur.php">Afficher Utilisateurs</a>
+            <a class="dropdown-item" href="afficherCommentaires.php">Afficher Commentaires</a>
+            <a class="dropdown-item" href="afficherUtilisateurChart.php">Afficher statistiques</a>
+        </div>
+      </li>
+
+      <!-- FIN UTILISATEUR-->
+
+
       <li class="nav-item">
         <a class="nav-link" href="check_out.php">
           <i class="fas fa-fw fa-chart-area"></i>
@@ -136,112 +154,121 @@ $listecat=$cat1C->afficherCategorie();
           <i class="fas fa-fw fa-table"></i>
           <span>evenement</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="forms-basic.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Annonce</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="formulairep.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Produit</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="formulairec.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Categorie</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="forms-basic1.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Livreur</span></a>
+      </li>
     </ul>
 
     <div id="content-wrapper">
 
       <div class="container-fluid">
 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
+      <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active">Utilisateur / Ajouter Utilisateur </li>
         </ol>
+        <!-- Breadcrumbs-->
+       
 
-        <!-- Icon Cards-->
-    
-						
-		<?PHP
-include "../entities/produit.php";
-include "../core/produitC.php";
-if (isset($_GET['id'])){
-	$prdC=new produitC();
-	$result=$prdC->recupererProduit($_GET['id']);
-	var_dump ($result);
-	
-		$id=$result['id'];
-		$nom=$result['nom'];
-		$prix=$result['prix'];
-		$quantite=$result['quantite'];
-		$description=$result['description'];
-		$cat=$result['cat'];
-		$image=$result['image'];
-		
-
-?>
+       <div class="page-head">
+          <div class="container-fluid">
+            <div class="row">
+                <div  align="center" border="1px" class="col-md-4">
+                  <h3 class="text-center text-info">Ajouter Utilisateur</h3>
+                    <hr>
+                      <form class="was-validated" action="ajouterUtilisateur1.php" method="POST" >
 
 
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control"  type="text" name="id" id="id" required pattern="[0-9]{1,12}" placeholder="ID"></td>
+                              <td><span style="color: red" id="erreuridd"></span></td>
+                            </tr>
+                        </div>
 
-<form class="was-validated" method="POST">
-<table>
-<div class="container-fluid">
-<hr>
-<div class="row">
-		<div class="col-md-20">
-			<h3 class="text-center text-info">Update Produit</h3>
-            <hr>
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" name="nom" id="nom" type="text" placeholder="NOM" required=""></td>
+                              <td><span style="color: red" id="erreurnom"></span></td>
+                            </tr>
+                        </div>
 
-<div class="form-group">
-<input class="form-control" required placeholder="Nom" type="text" name="nom" value="<?PHP echo $nom ?>">
-</div>
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="prenom" id="prenom" placeholder="PRENOM" required=""></td>
+                              <td><span style="color: red" id="erreurprenom"></span></td>
+                            </tr>
+                        </div>
 
-<div class="form-group">
-<input class="form-control" required  placeholder="Prix" type="text" name="prix" value="<?PHP echo $prix ?>">
-</div>
-
-<div class="form-group">
-<input class="form-control" required  placeholder="Quantité " type="text" name="quantite" value="<?PHP echo $quantite ?>">
-</div>
-
-<div class="form-group">
-
-<select  class="dropdown-header" name="cat">
-		<?PHP
-		 foreach($listecat as $row){
-		  ?>
-		  <option value="<?PHP echo $row['id']; ?>"><?PHP echo $row['nom']; ?>
-		  </option>
-		  <?PHP } ?>
-	</select>
-
-</div>
-<div class="form-group">
-<textarea class="form-control" required placeholder="Description" name="description" value="<?PHP echo $description ?>"></textarea>
-</div>
-<div class="row form-group">
-  <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
-    <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
-       </div>
-
-<div class="form-group">
-<input  class="btn btn-success btn-block" type="submit" name="modifier" value="modifier">
-</div>
-
-<div class="form-group">
-<input  type="hidden" name="id" value="<?PHP echo $_GET['id'];?>">
-</div>
-
-</div>
-
-</div>
-</div>
-</table>
-</form>
-<?PHP
-	
-}
-if (isset($_POST['modifier'])){
-	$produit=new produit($_POST['id'],$_POST['nom'],$_POST['prix'],$_POST['quantite'],$_POST['description'],$_POST['cat'],$_POST['image']);
-	$prdC->modifierProduit($produit,$_POST['id']);
-	echo $_POST['id'];
-    echo ("<script> window.location.replace(\"livaff.php\")</script>");
-}
-?>
-</body>
+                        <div class="form-group">
+                          <input type="date" name="dateNaissance" class="form-control" name="dateNaissance" required placeholder="DATE NAISSANCE">
+                        </div>
 
 
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="sexe" id="sexe" placeholder="SEXE" required=""></td>
+                              <td><span style="color: red" id="erreursexe"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="email" name="mail" class="form-control" required="" placeholder="ADRESSE MAIL">
+                        </div>
+
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="text" name="adresse" id="adresse" placeholder="ADRESSE" required=""></td>
+                              <td><span style="color: red" id="erreuradresse"></span></td>
+                            </tr>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="number" name="numTel" id="numTel" class="form-control" required pattern="[0-9]{6,12}" placeholder="NUMERO DE TELEPHONE" >
+                        </div>
+
+                        <div class="form-group">
+                            <tr>
+                              <td><input class="form-control" type="password" name="mdp" id="mdp" placeholder="MOT DE PASSE" required=""></td>
+                              <td><span style="color: red" id="erreurmdp"></span></td>
+                            </tr>
+                        </div>
+
+
+                        
+                        <div class="form-group">
+                          <input type="submit" name="add" class="btn btn-primary btn-block" value="Add" onclick=" return executerverif()">
+                        </div> 
+                      </form>
+                      <script src="ajouterUtilisateur.js"></script>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+    <div class="clearfix"></div>
 
       <!-- /.container-fluid -->
 
