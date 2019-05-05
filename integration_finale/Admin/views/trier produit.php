@@ -1,6 +1,18 @@
 <?PHP
 session_start();
     ?>
+     <?php
+include "../core/produitC.php";
+$produitC =new produitC();
+
+if(empty($_POST['search'])==false){
+ $x=$_POST['search'];
+    $prd=$produitC->rechercherProduit($x);}
+
+else
+$prd=$produitC->trierProduit();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -159,41 +171,19 @@ session_start();
 
         <!-- Icon Cards-->
        
-        <?php
-include "../core/produitC.php";
-$produitC =new produitC();
-
-$nbr=$produitC->Number();
-
-
-if(empty($_POST['search'])==false){
- $x=$_POST['search'];
-    $prd=$produitC->rechercherProduit($x);}
-
-else
-$prd=$produitC->afficherProduit();
-
-?>
+   
 
 
         <div class="content">
-        
-        <div id="printDiv">
+
 <table class="table table-striped b-t b-light">
     <form method="POST" action="livaff.php">
         <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
         <input type="submit" value="Rechercher"  class="btn btn-primary">
-        
-    
     </form>
-    <a href="trier produit.php">
-    <input type="submit" value="trier Par Quantité  "  class="btn btn-primary">
+    <a href="tri.php">
+    <input type="submit" value="trier Par Prix  "  class="btn btn-primary">
     </a>
-    
-   
-                   
-               
-    
    
     <thead>
     <tr>
@@ -212,7 +202,7 @@ $prd=$produitC->afficherProduit();
     </tr>
     </thead>
     <tbody>
-    
+
     <?php
 
 
@@ -224,7 +214,7 @@ $prd=$produitC->afficherProduit();
                 <td><span class="text-ellipsis"><?php echo $p['nom']; ?></span></td>
                 <td><span class="text-ellipsis"> <img src="images/avatar/<?=  $p['image'] ?>" widht="40" height="30" alt=""></span></td>
                
-                
+                <!--?php echo $p['image']; ?>-->
                 <td><span class="text-ellipsis"><?php echo $p['prix']; ?></span></td>
                 <td><span class="text-ellipsis"><?php echo $p['quantite']; ?></span></td>
                 <td><span class="text-ellipsis"><?php echo $p['description']; ?></span></td>
@@ -242,30 +232,13 @@ $prd=$produitC->afficherProduit();
                </tr>
             <?php
         }
-        
-        
-        
 
 
 
     ?>
-    
-    </div>
- 
-                          
-         
-        
-    
-               
-                
-                                                                  <button id="doPrint" class="btn btn-primary" >Print</button>
-   
-  
-  
 
     </tbody>
 </table>
-<p><strong>Nombre Total Des produits :</strong> <?php echo $nbr['QTE'] ?></p>
 
 
 </div>
@@ -330,15 +303,7 @@ $prd=$produitC->afficherProduit();
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
-  <script >
-        document.getElementById("doPrint").addEventListener("click", function() {
-     var printContents = document.getElementById('printDiv').innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
-});
-    </script>
+
 </body>
 
 </html>

@@ -164,6 +164,11 @@ session_start();
         <?php
 include "../core/categorieC.php";
 $categorieC =new categorieC();
+if(empty($_POST['search'])==false){
+  $x=$_POST['search'];
+     $cat=$categorieC->rechercherCategorie($x);}
+ 
+ else
 
 
 $cat=$categorieC->afficherCategorie();
@@ -173,7 +178,7 @@ $cat=$categorieC->afficherCategorie();
         <div class="content">
 
             <table class="table table-striped b-t b-light">
-                <form method="POST" action="livaff.php">
+                <form method="POST" action="cataff.php">
                     <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
                     <input type="submit" value="Rechercher"  class="btn btn-primary">
                 </form>
@@ -205,6 +210,8 @@ $cat=$categorieC->afficherCategorie();
                             
                             <td> <a href="suppcat.php?id=<?php echo $c['id']; ?>">
                                     <input type="button" value="Remove"> </a></td>
+                                    <td> <a href="modifiercat.php?id=<?php echo $c['id']; ?>">
+                 <input type="button" value="Edit"> </a></td>
                            
                          
 

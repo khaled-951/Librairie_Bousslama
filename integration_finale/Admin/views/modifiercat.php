@@ -1,5 +1,6 @@
 <?PHP
 session_start();
+
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +99,7 @@ session_start();
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="indexB.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -133,21 +134,6 @@ session_start();
           <i class="fas fa-fw fa-table"></i>
           <span>evenement</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="forms-basic.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Annonce</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="formulairep.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Produit</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="formulairec.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Categorie</span></a>
-      </li>
     </ul>
 
     <div id="content-wrapper">
@@ -155,120 +141,83 @@ session_start();
       <div class="container-fluid">
 
         <!-- Breadcrumbs-->
-       
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
 
         <!-- Icon Cards-->
-       
-        <?php
-include "../core/produitC.php";
-$produitC =new produitC();
-
-$nbr=$produitC->Number();
+    
+						
+		<?PHP
 
 
-if(empty($_POST['search'])==false){
- $x=$_POST['search'];
-    $prd=$produitC->rechercherProduit($x);}
 
-else
-$prd=$produitC->afficherProduit();
+  include "../core/categorieC.php";
+  include "../entities/categorie.php";
+  $cat1C=new categorieC();
+  $listecat=$cat1C->afficherCategorie();
+  if (isset($_GET['id'])){
+    $result=$cat1C->recupererCategorie($_GET['id']);
+	var_dump ($result);
+	
+		$id=$result['id'];
+		$nom=$result['nom'];
+  }
+		
 
 ?>
 
 
-        <div class="content">
-        
-        <div id="printDiv">
-<table class="table table-striped b-t b-light">
-    <form method="POST" action="livaff.php">
-        <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
-        <input type="submit" value="Rechercher"  class="btn btn-primary">
-        
-    
-    </form>
-    <a href="trier produit.php">
-    <input type="submit" value="trier Par Quantité  "  class="btn btn-primary">
-    </a>
-    
-   
-                   
-               
-    
-   
-    <thead>
-    <tr>
-        <th colspan="6"></th>
-    </tr>
-    <tr>
-        <th>id</th>
-        <th>Nom produit</th>
-        <th>image</th>
-        <th>prix</th>
-        <th>quantité</th>
-        <th>description</th>
-        <th>catégorie</th>
-      
-        <th style="width:30px;"></th>
-    </tr>
-    </thead>
-    <tbody>
-    
-    <?php
 
+<form class="was-validated" method="POST">
+<table>
+<div class="container-fluid">
+<hr>
+<div class="row">
+		<div class="col-md-20">
+			<h3 class="text-center text-info">Update Categorie</h3>
+            <hr>
+            
+<div class="form-group">
+<input class="form-control" required placeholder="Nom" type="text" name="nom" value="<?PHP echo $nom ?>">
+</div>
 
-        foreach($prd as $p){
-            ?>
-
-            <tr>
-                <td><span class="text-ellipsis"><?php echo $p['id']; ?></span></td>
-                <td><span class="text-ellipsis"><?php echo $p['nom']; ?></span></td>
-                <td><span class="text-ellipsis"> <img src="images/avatar/<?=  $p['image'] ?>" widht="40" height="30" alt=""></span></td>
-               
-                
-                <td><span class="text-ellipsis"><?php echo $p['prix']; ?></span></td>
-                <td><span class="text-ellipsis"><?php echo $p['quantite']; ?></span></td>
-                <td><span class="text-ellipsis"><?php echo $p['description']; ?></span></td>
-                <td><span class="text-ellipsis"><?php echo $p['cat']; ?></span></td>
-                <td> <a href="supprimerprd.php?id=<?php echo $p['id']; ?>">
-                        <input type="button" value="Remove"> </a></td>
-               
-                <td> <a href="modifierproduit.php?id=<?php echo $p['id']; ?>">
-                 <input type="button" value="Edit"> </a></td>
-
-               
-
-             
-
-               </tr>
-            <?php
-        }
-        
-        
-        
+<div class="form-group">
+<input  type="hidden" name="id" value="<?PHP echo $_GET['id'];?>">
+</div>
 
 
 
-    ?>
-    
-    </div>
- 
-                          
-         
-        
-    
-               
-                
-                                                                  <button id="doPrint" class="btn btn-primary" >Print</button>
-   
-  
-  
 
-    </tbody>
-</table>
-<p><strong>Nombre Total Des produits :</strong> <?php echo $nbr['QTE'] ?></p>
+
+<div class="form-group">
+<input  class="btn btn-success btn-block" type="submit" name="modifier" value="Update">
+</div>
+
 
 
 </div>
+
+</div>
+</div>
+
+</table>
+</form>
+<?PHP
+	
+
+if (isset($_POST['modifier'])){
+	$cat=new Categorie($_POST['nom']);
+	$cat1C->modifierCategorie($cat,$_POST['id']);
+	echo $_POST['id'];
+    echo ("<script> window.location.replace(\"cataff.php\")</script>");
+}
+?>
+</body>
+
 
 
       <!-- /.container-fluid -->
@@ -330,15 +279,7 @@ $prd=$produitC->afficherProduit();
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
-  <script >
-        document.getElementById("doPrint").addEventListener("click", function() {
-     var printContents = document.getElementById('printDiv').innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
-});
-    </script>
+
 </body>
 
 </html>

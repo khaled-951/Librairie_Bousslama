@@ -198,7 +198,7 @@ $listecat=$cat1C->afficherCategorie();
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="nom" class=" form-control-label">Nom du produit</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="nom" name="nom" placeholder="Text" class="form-control" required pattern="[a-zA-Z]{3,12}"><small class="form-text text-muted">This is a help text</small></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="nom" name="nom" placeholder="Text" onchange="return control()" class="form-control" ><small class="form-text text-muted">This is a help text</small></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="quantite" class=" form-control-label">quantite</label></div>
@@ -212,7 +212,7 @@ $listecat=$cat1C->afficherCategorie();
                                
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="description" class=" form-control-label">Description</label></div>
-                                        <div class="col-12 col-md-9"><textarea name="description" id="description" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                                        <div class="col-12 col-md-9"><textarea name="description" id="autre" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur(); rows="9" placeholder="Content..." class="form-control"></textarea></div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
@@ -244,6 +244,17 @@ $listecat=$cat1C->afficherCategorie();
                                 <button type="reset" class="btn btn-danger btn-sm">
                                     <i class="fa fa-ban"></i> Reset
                                 </button>
+                                
+                                <a href="livaff.php"> <button type="submit" class="btn btn-primary btn-sm" ></a>
+                                    <i class="fa fa-dot-circle-o"></i> Liste des produits 
+                                </button>
+                               
+   
+
+
+  
+   
+    
                             </div>
                         </div>
                         
@@ -259,6 +270,7 @@ function compar()
 {
 var quantite = document.getElementById('quantite').value
 var prix = document.getElementById('prix').value
+var nom = document.getElementById('nom').value
 
 
 
@@ -279,6 +291,43 @@ return true ;
 
 }
 </script>
+<script>
+function validateNames(name){
+	var regName = /^[a-zA-Z]+$/;
+	return regName.test(name);
+}
+function control()
+{
+		var nom=document.getElementById('nom').value;
+       
+	if(!validateNames(nom).value)
+	{
+		alert("Veuilliez verifier le nom ");
+				return false;
+
+	}	
+  return true;
+	
+}
+
+</script>
+<script language="javascript" type="text/javascript">
+									function calculeLongueur(){
+   										var iLongueur, iLongueurRestante;
+   										iLongueur = document.getElementById('autre').value.length;
+   										if (iLongueur>10) {
+     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,120);
+      									iLongueurRestante = 0;
+   										}
+   										else {
+     							 		iLongueurRestante = 20 - iLongueur;
+   									}
+   									if (iLongueurRestante <= 1)
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
+   									else
+      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
+									}
+							</script>
 
                 
                
@@ -350,6 +399,7 @@ return true ;
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
+  
 
 </body>
 

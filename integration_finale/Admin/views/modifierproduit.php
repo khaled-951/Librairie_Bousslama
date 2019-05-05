@@ -154,8 +154,9 @@ $listecat=$cat1C->afficherCategorie();
     
 						
 		<?PHP
-include "../entities/produit.php";
+
 include "../core/produitC.php";
+include "../entities/produit.php";
 if (isset($_GET['id'])){
 	$prdC=new produitC();
 	$result=$prdC->recupererProduit($_GET['id']);
@@ -182,9 +183,9 @@ if (isset($_GET['id'])){
 		<div class="col-md-20">
 			<h3 class="text-center text-info">Update Produit</h3>
             <hr>
-
+            
 <div class="form-group">
-<input class="form-control" required placeholder="Nom" type="text" name="name" value="<?PHP echo $nom ?>">
+<input class="form-control" required placeholder="Nom" type="text" name="nom" value="<?PHP echo $nom ?>">
 </div>
 
 <div class="form-group">
@@ -197,7 +198,7 @@ if (isset($_GET['id'])){
 
 <div class="form-group">
 
-<select  class="dropdown-header" name="idcat">
+<select  class="dropdown-header" name="cat">
 		<?PHP
 		 foreach($listecat as $row){
 		  ?>
@@ -208,24 +209,25 @@ if (isset($_GET['id'])){
 
 </div>
 <div class="form-group">
-<textarea class="form-control" required placeholder="Description" name="description" value="<?PHP echo $description ?>"></textarea>
+<input class="form-control" required placeholder="Description" type="text" name="description" value="<?PHP echo $description ?>">
 </div>
 <div class="row form-group">
-                                        <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
-                                        <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
-                                    </div>
+  <div class="col col-md-3"><label for="image" class=" form-control-label">File input</label></div>
+    <div class="col-12 col-md-9"><input type="file" id="image" name="image" class="form-control-file"></div>
+       </div>
 
 <div class="form-group">
 <input  class="btn btn-success btn-block" type="submit" name="modifier" value="Update">
 </div>
 
+
+
+</div>
+
+</div>
+</div>
 <div class="form-group">
-<input  type="hidden" name="id_ini" value="<?PHP echo $_GET['id'];?>">
-</div>
-
-</div>
-
-</div>
+<input  type="hidden" name="id" value="<?PHP echo $_GET['id'];?>">
 </div>
 </table>
 </form>
@@ -233,7 +235,7 @@ if (isset($_GET['id'])){
 	
 }
 if (isset($_POST['modifier'])){
-	$produit=new produit($_POST['id'],$_POST['nom'],$_POST['prix'],$_POST['quantite'],$_POST['description'],$_POST['cat'],$_POST['image']);
+	$produit=new produit($_POST['nom'],$_POST['prix'],$_POST['quantite'],$_POST['description'],$_POST['cat'],$_POST['image']);
 	$prdC->modifierProduit($produit,$_POST['id']);
 	echo $_POST['id'];
     echo ("<script> window.location.replace(\"livaff.php\")</script>");

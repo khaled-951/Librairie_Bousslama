@@ -203,6 +203,9 @@ session_start();
                                 <button type="reset" class="btn btn-danger btn-sm">
                                     <i class="fa fa-ban"></i> Reset
                                 </button>
+                                <a href="cataff.php"> <button type="submit" class="btn btn-primary btn-sm" ></a>
+                                    <i class="fa fa-dot-circle-o"></i> Liste des Catégories 
+                                </button>
                             </div>
                         </div>
                         
