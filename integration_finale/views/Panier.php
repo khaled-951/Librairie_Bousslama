@@ -6,7 +6,13 @@ require '../config.php' ;
 require '../core/panier.class.php' ;
 session_start(); 
 
+$config_DB = new config();
+$DB = $config_DB->getConnexion();
 
+$Panier = new ClassPanier($DB);
+
+if(isset($_SESSION['idclient']))
+	$Stuff = $Panier->GetPanier($_SESSION['idclient']);
 
 	
 
@@ -147,7 +153,7 @@ session_start();
 								</div>
 								<strong class="text-uppercase">My Cart:</strong>
 								<br>
-								<span><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['user_id']); else echo 0 ;?>$</span>
+								<span><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['idclient']); else echo 0 ;?>$</span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
@@ -158,13 +164,13 @@ session_start();
 										{?>
 										<div class="product product-widget">
 											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
+												<img src="./img/<?php echo $Panier->Get_Product_Image($i['Product_id']); ?>" alt="">
 											</div>
 											<div class="product-body">
 												<h3 class="product-price"><?php echo $Panier->Get_Product_Price($i['Product_id']); ?> <span class="qty">x<?php echo $i['product_quantity']; ?></span></h3>
 												<h2 class="product-name"><a href="#"><?php echo $Panier->Get_Product_Name($i['Product_id']); ?></a></h2>
 											</div>
-											<a href="panier<?php echo '?User_ID=' . $_SESSION['user_id'] . '&Delete_Product=' . $i['Product_id']; ?>"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
+											<a href="panier.php<?php echo '?User_ID=' . $_SESSION['idclient'] . '&Delete_Product=' . $i['Product_id']; ?>"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
 										</div>
 										<?php
 										}
@@ -560,20 +566,17 @@ session_start();
 	
 <?php
 
-
-
-
-if(isset($_SESSION['user_id']) && isset($_GET['Product_ID']) && isset($_GET['Product_Quantity']) )
-	$Panier->add($_SESSION['user_id'], $_GET['Product_ID'], $_GET['Product_Quantity']);
+if(isset($_SESSION['idclient']) && isset($_GET['Product_ID']) && isset($_GET['Product_Quantity']) )
+	$Panier->add($_SESSION['idclient'], $_GET['Product_ID'], $_GET['Product_Quantity']);
 
 if(isset($_GET['Delete_Cart']) )
 	$Panier->del_cart($_GET['Delete_Cart']);
 
-if(isset($_GET['User_ID']) && isset($_GET['Delete_Product']) )
-	$Panier->delete_product_from_cart($_GET['User_ID'], $_GET['Delete_Product']);
+if(isset($_SESSION['idclient']) && isset($_GET['Delete_Product']) )
+	$Panier->delete_product_from_cart($_SESSION['idclient'], $_GET['Delete_Product']);
 
-if(isset($_SESSION['user_id']) && isset($_GET['Product_ID']) && isset($_GET['Update_Quantity']) )
-	$Panier->update_quantity( $_SESSION['user_id'], $_GET['Product_ID'], $_GET['Update_Quantity']);
+if(isset($_SESSION['idclient']) && isset($_GET['Product_ID']) && isset($_GET['Update_Quantity']) )
+	$Panier->update_quantity( $_SESSION['idclient'], $_GET['Product_ID'], $_GET['Update_Quantity']);
 
 if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET['Product_Quantity']) || isset($_GET['Delete_Cart']) || isset($_GET['Delete_Product']) )
 	echo "<script> window.location.href = 'panier.php' </script>";
@@ -620,28 +623,28 @@ if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET
 								{
 								echo '
 									<tr>
-										<td class="thumb"><img src="./img/thumb-product01.jpg" alt=""></td>
+										<td class="thumb"><img src="./img/'; echo $Panier->Get_Product_image($i['Product_id']); echo '" alt=""></td>
 										<td class="details">
 											<a href="#">'; echo $Panier->Get_Product_Name($i['Product_id']); echo '</a>
 											<ul>
-												<li><span>Size: XL</span></li>
-												<li><span>Color: Camelot</span></li>
+												<li><span>Description: '; echo $Panier->Get_Product_Desc($i['Product_id']); echo '</span></li>
 											</ul>
 										</td>
 										<td class="price text-center"><strong>$'; echo $Panier->Get_Product_Price($i['Product_id']); echo '</strong><br><del class="font-weak"><small>$40.00</small></del></td>
-										<td class="qty text-center"><input class="input" type="number" value="'; echo $i['product_quantity']; echo '"></td>
+										<form action="panier.php" method="GET" ><input name="Product_ID" type="hidden" value="'; echo $i['Product_id']; echo '"/>
+										<td class="qty text-center"><input class="input" name="Update_Quantity" type="number" value="'; echo $i['product_quantity']; echo '"></td>
 										<td class="total text-center"><strong class="primary-color">'; echo $Panier->Get_Product_Price($i['Product_id']) * $i['product_quantity'] ; echo '</strong></td>
-										<td class="text-right"><a href="?User_ID=';echo $_SESSION['user_id']; echo '&Delete_Product='; echo $i['Product_id']; echo '"><button class="main-btn icon-btn" ><i class="fa fa-close"></i></button></a></td>
+										<td class="text-right"><button class="primary-btn">Update</button></td></form>
+										<td class="text-right"><a href="?' ; echo 'Delete_Product='; echo $i['Product_id']; echo '"><button class="main-btn icon-btn" ><i class="fa fa-close"></i></button></a></td>
 									</tr>';
 								}
-						
 								?>
 								</tbody>
 								<tfoot>
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>SUBTOTAL</th>
-										<th colspan="2" class="sub-total"><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['user_id']); else echo 0 ;?>$</th>
+										<th colspan="2" class="sub-total"><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['idclient']); else echo 0 ;?>$</th>
 									</tr>
 									<tr>
 										<th class="empty" colspan="3"></th>
@@ -651,13 +654,10 @@ if( isset($_GET['Product_ID']) || isset($_GET['Update_Quantity']) || isset($_GET
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>TOTAL</th>
-										<th colspan="2" class="total"><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['user_id']); else echo 0 ;?>$</th>
+										<th colspan="2" class="total"><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['idclient']); else echo 0 ;?>$</th>
 									</tr>
 								</tfoot>
 							</table>
-							<div class="pull-left">
-								<a href="https://google.fr" ><button class="primary-btn">Update</button></a>
-							</div>
 							<div class="pull-right">
 								<a href="checkout.php"><button class="primary-btn">Place Order</button></a>
 							</div>

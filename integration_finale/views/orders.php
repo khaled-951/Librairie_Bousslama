@@ -4,17 +4,17 @@
 	
 	$Order = new ClassOrder();
 
-if(	isset($_SESSION['user_id']) )
-	$Orders = $Order->GetOrders($_SESSION['user_id']);
+if(	isset($_SESSION['idclient']) )
+	$Orders = $Order->GetOrders($_SESSION['idclient']);
 
-if(	isset($_SESSION['user_id']) && isset($_GET['Delete_Order']) )
+if(	isset($_SESSION['idclient']) && isset($_GET['Delete_Order']) )
 {
-	$Order->delete_order($_GET['Delete_Order'], $_SESSION['user_id']);
+	$Order->delete_order($_GET['Delete_Order'], $_SESSION['idclient']);
 	echo "<script> window.location.href = 'orders.php' </script>";
 }
-if(	isset($_SESSION['user_id']) && isset($_GET['Delete_All']) )
+if(	isset($_SESSION['idclient']) && isset($_GET['Delete_All']) )
 {
-	$Order->delete_all_orders($_SESSION['user_id']);
+	$Order->delete_all_orders($_SESSION['idclient']);
 	echo "<script> window.location.href = 'orders.php' </script>";
 }
 ?>

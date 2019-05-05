@@ -23,6 +23,7 @@ class ClassOrder{
 			$req->execute();
 			
 			$products = $req->fetchAll();
+			
 		
 			$req = $this->DB->prepare("INSERT INTO `orders` (`user_id`, `billing_name`, `billing_surname`, `billing_email`, `billing address`, `billing_postal_code`, `billing_city`, `billing_phone`, `billing_country`, `is_filled`, `order_date`) VALUES (:user_id, :first_name, :last_name, :email, :address, :zip_code, :city, :tel, :country, 0, NOW())");
 			$req->bindValue(':user_id', $user_id);
@@ -41,9 +42,25 @@ class ClassOrder{
 			$req->execute();
 			
 			$order_id = $req->fetchAll();
-		
+			var_dump($products);
+			
+			$pp=array();
+			for($i=0; $i < count($products) - 1 ; $i++)
+			{
+				print $i ;
+				if($products[$i]['Product_id'] != $products[$i + 1]['Product_id'])
+				{
+					array_push($pp, $products[$i]);
+				}
+			}
+			array_push($pp, $products[$i]);
+			
+			$products=$pp;
+			
+			var_dump($products);
 		foreach($products as $product)
 		{
+			
 			$product['order_id'] = $order_id[count($order_id) - 1]['order_id'];
 			$req = $this->DB->prepare("insert into orders_products values (:order_id, :Product_ID, :product_quantity)");
 			$req->bindValue(':order_id', $product['order_id']);
@@ -54,6 +71,11 @@ class ClassOrder{
 			{
 				$req = $this->DB->prepare("delete from cart where User_ID = :user_id and Product_id = :Product_ID");
 				$req->bindValue(':user_id', $user_id);
+				$req->bindValue(':Product_ID', $product['Product_id']);
+				$req->execute();
+				
+				$req = $this->DB->prepare("Update produit set quantite = quantite - :product_quantity where id = :Product_ID");
+				$req->bindValue(':product_quantity', $product['product_quantity']);
 				$req->bindValue(':Product_ID', $product['Product_id']);
 				$req->execute();
 			}

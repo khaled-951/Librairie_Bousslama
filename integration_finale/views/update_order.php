@@ -4,15 +4,15 @@
 	
 	$Order = new ClassOrder();
 	
-if(	isset($_SESSION['user_id']) && isset($_GET['first-name']) && isset($_GET['last-name']) && isset($_GET['email']) && isset($_GET['address']) && isset($_GET['city']) && isset($_GET['country']) && isset($_GET['zip-code']) && isset($_GET['tel']) )
+if(	isset($_SESSION['idclient']) && isset($_GET['first-name']) && isset($_GET['last-name']) && isset($_GET['email']) && isset($_GET['address']) && isset($_GET['city']) && isset($_GET['country']) && isset($_GET['zip-code']) && isset($_GET['tel']) )
 {
-	$Order->update_order($_GET['order_id'], $_SESSION['user_id'], $_GET['first-name'], $_GET['last-name'], $_GET['email'], $_GET['address'], $_GET['city'], $_GET['country'], $_GET['zip-code'], $_GET['tel']);
+	$Order->update_order($_GET['order_id'], $_SESSION['idclient'], $_GET['first-name'], $_GET['last-name'], $_GET['email'], $_GET['address'], $_GET['city'], $_GET['country'], $_GET['zip-code'], $_GET['tel']);
 	echo "<script> window.location.href = 'orders.php' </script>";
 }
 	
-if(	isset($_SESSION['user_id']) && isset($_GET['order_id']) )
+if(	isset($_SESSION['idclient']) && isset($_GET['order_id']) )
 {
-	$Orders = $Order->GetOrders($_SESSION['user_id']);
+	$Orders = $Order->GetOrders($_SESSION['idclient']);
 	foreach($Orders as $i)
 	{
 		if($i['order_id'] == $_GET['order_id'])

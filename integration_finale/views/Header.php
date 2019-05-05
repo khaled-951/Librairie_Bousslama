@@ -10,16 +10,8 @@ $DB = $config_DB->getConnexion();
 
 $Panier = new ClassPanier($DB);
 
-if(isset($_SESSION['user_id']))
-	$Stuff = $Panier->GetPanier($_SESSION['user_id']);
-?>
-<?php 
-
-include "../core/categorieC.php";
-
-$categorieC =new categorieC();
-$listeCategorieC=$categorieC->afficherCategorie();   
-
+if(isset($_SESSION['idclient']))
+	$Stuff = $Panier->GetPanier($_SESSION['idclient']);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +67,7 @@ $listeCategorieC=$categorieC->afficherCategorie();
 				</div>
 				<div class="pull-right">
 					<ul class="header-top-links">
-						<li><a href="products.php">Store</a></li>
+						<li><a href="#">Store</a></li>
 						<li><a href="#">Newsletter</a></li>
 						<li><a href="#">FAQ</a></li>
 						<li class="dropdown default-dropdown">
@@ -157,7 +149,7 @@ $listeCategorieC=$categorieC->afficherCategorie();
 								</div>
 								<strong class="text-uppercase">My Cart:</strong>
 								<br>
-								<span><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['user_id']); else echo 0 ;?>$</span>
+								<span><?php if(isset($Stuff)) echo $Panier->CalulateTotal($_SESSION['idclient']); else echo 0 ;?>$</span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
@@ -174,7 +166,7 @@ $listeCategorieC=$categorieC->afficherCategorie();
 												<h3 class="product-price"><?php echo $Panier->Get_Product_Price($i['Product_id']); ?> <span class="qty">x<?php echo $i['product_quantity']; ?></span></h3>
 												<h2 class="product-name"><a href="#"><?php echo $Panier->Get_Product_Name($i['Product_id']); ?></a></h2>
 											</div>
-											<a href="panier<?php echo '?User_ID=' . $_SESSION['user_id'] . '&Delete_Product=' . $i['Product_id']; ?>"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
+											<a href="panier<?php echo '?User_ID=' . $_SESSION['idclient'] . '&Delete_Product=' . $i['Product_id']; ?>"><button class="cancel-btn"><i class="fa fa-trash"></i></button></a>
 										</div>
 										<?php
 										}
@@ -212,13 +204,10 @@ $listeCategorieC=$categorieC->afficherCategorie();
 				<div class="category-nav show-on-click">
 					<span class="category-header">Categories <i class="fa fa-list"></i></span>
 					<ul class="category-list">
-					
 						<li class="dropdown side-dropdown">
-						
 							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i class="fa fa-angle-right"></i></a>
 							<div class="custom-menu">
 								<div class="row">
-								
 									<div class="col-md-4">
 										<ul class="list-links">
 											<li>
@@ -402,21 +391,18 @@ $listeCategorieC=$categorieC->afficherCategorie();
 							</div>
 						</li>
 						<li><a href="#">Bags & Shoes</a></li>
-						<li><a href="products.php">View All</a></li>
+						<li><a href="#">View All</a></li>
 					</ul>
 				</div>
 				<!-- /category nav -->
 
 				<!-- menu nav -->
 				<div class="menu-nav">
-			
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-					<?php  foreach ($listeCategorieC as  $row) :?>
-						<li><a href="products.php?categorie=<?=$row['id'];?>"><?= $row['nom'] ?></a></li>
-						
-						<?php endforeach;?>
-						
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Shop</a></li>
+						<li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-4">
@@ -469,7 +455,7 @@ $listeCategorieC=$categorieC->afficherCategorie();
 								</div>
 							</div>
 						</li>
-						
+						<li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Men <i class="fa fa-caret-down"></i></a>
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-3">
@@ -555,8 +541,8 @@ $listeCategorieC=$categorieC->afficherCategorie();
 								</div>
 							</div>
 						</li>
-						
-					
+						<li><a href="#">Sales</a></li>
+						<li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
 							<ul class="custom-menu">
 								<li><a href="index.html">Home</a></li>
 								<li><a href="products.html">Products</a></li>
