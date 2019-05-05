@@ -8,6 +8,14 @@ require '../core/panier.class.php' ;
 
 	
 ?>
+<?php 
+
+include "../core/categorieC.php";
+
+$categorieC =new categorieC();
+$listeCategorieC=$categorieC->afficherCategorie();   
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -390,9 +398,12 @@ require '../core/panier.class.php' ;
 				<div class="menu-nav">
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Shop</a></li>
-						<li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
+					<?php  foreach ($listeCategorieC as  $row) :?>
+						<li><a href="products.php?categorie=<?=$row['id'];?>"><?= $row['nom'] ?></a></li>
+						
+						<?php endforeach;?>
+					
+						
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-4">
@@ -445,7 +456,7 @@ require '../core/panier.class.php' ;
 								</div>
 							</div>
 						</li>
-						<li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Men <i class="fa fa-caret-down"></i></a>
+					
 							<div class="custom-menu">
 								<div class="row">
 									<div class="col-md-3">
@@ -531,8 +542,8 @@ require '../core/panier.class.php' ;
 								</div>
 							</div>
 						</li>
-						<li><a href="#">Sales</a></li>
-						<li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
+						
+					
 							<ul class="custom-menu">
 								<li><a href="index.html">Home</a></li>
 								<li><a href="products.html">Products</a></li>
