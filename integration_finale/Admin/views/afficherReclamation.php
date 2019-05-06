@@ -2,18 +2,6 @@
 session_start();
     ?>
 <!DOCTYPE html>
-<?PHP
-include "../entities/Annonces.php";
-include "../core/AnnoncesC.php";
-if (isset($_GET['id'])){
-	$AnnoncesC=new AnnoncesC();
-    $result=$AnnoncesC->recupererAnnonces($_GET['id']);
-	foreach($result as $row){
-		$id=$row['id'];
-		$Type=$row['type'];
-		$Description=$row['Description'];
-		
-?>
 <html lang="en">
 
 <head>
@@ -160,16 +148,13 @@ if (isset($_GET['id'])){
           <i class="fas fa-fw fa-table"></i>
           <span>Categorie</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="forms-basic1.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Livreur</span></a>
-      </li>
+    
     </ul>
 
     <div id="content-wrapper">
 
       <div class="container-fluid">
+
       <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
@@ -181,81 +166,102 @@ if (isset($_GET['id'])){
 
         <!-- Icon Cards-->
   
-        <div class="content">
+        <?PHP
+include "../core/ReclamationC.php";
+$Reclamation1C =new ReclamationC();
+$listeReclamation=$Reclamation1C->afficherReclamations();
+
+
+if(empty($_POST['search'])==false){
+ $x=$_POST['search'];
+    $listeReclamation=$Reclamation1C->rechercherReclamation($x);}
+
+    else
+$listeReclamation=$Reclamation1C->afficherReclamations();
+
+//var_dump($listeEmployes->fetchAll());
+?>
+
+<div class="content">
+            
+            <table class="table table-striped b-t b-light">
+                <form method="POST" action="afficherReclamation.php">
+                    <input type="text" id="arearech" name="search" placeholder="Taper pour rechercher ... " required>
+                    <input type="submit" value="Rechercher"  class="btn btn-primary">
+                </form>
             <div class="animated fadeIn">
-
-
-                
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Annonces</strong> Elements
+                                <strong class="card-title">Reclamation</strong>
                             </div>
-                            <div class="card-body card-block">
-                                <form method="POST">
-                                    </div>
-                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">ID</label></div>
-                                        <div class="col-12 col-md-9">
-                                        	<input type="number" name="id" value="<?PHP echo $id ?>"disabled>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Type</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="text-input" name="Type" placeholder="Text" required class="form-control" value="<?PHP echo $Type ?>"></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="textarea-input"  class=" form-control-label">Description</label></div>
-                                       <textarea   name="Description" onblur="calculeLongueur();" onfocus="calculeLongueur();" onkeydown="calculeLongueur();" onkeyup="calculeLongueur();"  id="autre" class="form-control"  required pattern="[0-9a-zA-Z,/. ]{3,12}" placeholder="Informations About the Events" 
-                                         value="<?PHP echo $Description ?>"></textarea>
-                                    </div>
-                                    <div class="card-footer">
-                                    	 <input type="hidden" name="id_ini" value="<?PHP echo $_GET['id'];?>">
-                                <button type="submit" class="btn btn-primary btn-sm" name="modifier" value="modifier" >
-
-                                    <i class="fa fa-dot-circle-o"></i> Submit
-                                </button>
-
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Reset
-                                </button>
-                            </form>
-                            							<?PHP
-	}
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th class="serial">id</th>
+                                            <th class="avatar">Type</th>
+                                            <th>Description</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                                  
+<?PHP
+foreach($listeReclamation as $row){
+	?>
+	<tr>
+	<td><?PHP echo $row['id']; ?></td>
+	<td><?PHP echo $row['nomU']; ?></td>
+	<td><?PHP echo $row['dateRec']; ?></td>
+	<td><?PHP echo $row['sujet']; ?></td>
+	<td><?PHP echo $row['Description']; ?></td>
+	<td><img width="100" src="uploads/<?php echo $row['photo'] ?>" alt="<?php echo $row['photo'] ?>"></td>
+	<td><form method="POST" action="supprimerReclamation.php">
+	<input type="submit" name="supprimer" value="supprimer">
+	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
+	</form>
+	</td>
+	<td><a href="modifierReclamation.php?id=<?PHP echo $row['id']; ?>">
+	Accept</a></td>
+		<td><a href="modifierReclamation1.php?id=<?PHP echo $row['id']; ?>">
+	Decline</a></td>
+	</tr>
+	<?PHP
 }
-
-if (isset($_POST['modifier'])){
-	$Annonces=new Annonces($_POST['id'],$_POST['Type'],$_POST['Description']);
-	$AnnoncesC->modifierAnnonces($Annonces,$_POST['id_ini']);
-	echo $_POST['id_ini'];
-	header('Location: afficherAnnonces.php');
+?>
 }
-?>   
-                            </div>
+			?>
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
                         </div>
+                    </div>
+                    
+                </div>
 
-                        </div>
-                        </div>
-        
-                        <div class="clearfix"></div>  
-                            
-<!-- Right Panel -->
+                
+                
+                
+            </div>
 
 
 
+
+            
+            
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+<div class="clearfix"></div>
 
 
       <!-- /.container-fluid -->
-<hr>
-      <!-- Sticky Footer -->
-    
-  <!-- /#wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-  <footer class="sticky-footer">
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright © Your Website 2019</span>
@@ -267,6 +273,12 @@ if (isset($_POST['modifier'])){
     <!-- /.content-wrapper -->
 
   </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -306,31 +318,6 @@ if (isset($_POST['modifier'])){
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="assets/js/main.js"></script>
-<script language="javascript" type="text/javascript">
-									function calculeLongueur(){
-   										var iLongueur, iLongueurRestante;
-   										iLongueur = document.getElementById('autre').value.length;
-   										if (iLongueur>10) {
-     							    	document.getElementById('autre').value = document.getElementById('autre').value.substring(0,20);
-      									iLongueurRestante = 0;
-   										}
-   										else {
-     							 		iLongueurRestante = 20 - iLongueur;
-   									}
-   									if (iLongueurRestante <= 1)
-      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;re&nbsp;disponible";
-   									else
-      								document.getElementById('indic').innerHTML = iLongueurRestante + "&nbsp;caract&egrave;res&nbsp;disponibles";
-									}
-							</script>
-
-
-
 </body>
+
 </html>

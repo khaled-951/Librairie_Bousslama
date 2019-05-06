@@ -153,6 +153,11 @@ session_start();
           <i class="fas fa-fw fa-table"></i>
           <span>Livreur</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="afficherReclamation.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Reclamations</span></a>
+      </li>
     </ul>
 
     <div id="content-wrapper">
