@@ -123,6 +123,25 @@ session_start();
           <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
       </li>
+
+      <!-- UTILISATEUR-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Utilisateurs</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="ajouterUtilisateur.php">Ajouter Utilisateur</a>
+            <a class="dropdown-item" href="afficherUtilisateur.php">Afficher Utilisateurs</a>
+            <a class="dropdown-item" href="afficherCommentaires.php">Afficher Commentaires</a>
+            <a class="dropdown-item" href="afficherUtilisateurChart.php">Afficher statistiques</a>
+        </div>
+      </li>
+
+      <!-- FIN UTILISATEUR-->
+
+
+
       <li class="nav-item">
         <a class="nav-link" href="check_out.php">
           <i class="fas fa-fw fa-chart-area"></i>
@@ -152,11 +171,6 @@ session_start();
         <a class="nav-link" href="forms-basic1.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Livreur</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="afficherReclamation.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Reclamations</span></a>
       </li>
     </ul>
 
