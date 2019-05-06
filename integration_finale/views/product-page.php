@@ -9,6 +9,7 @@ session_start();
 <?php 
 
 include "../core/categorieC.php";
+include "../core/AvisC.php";
 
 $categorieC =new categorieC();
 $listeCategorieC=$categorieC->afficherCategorie();   
@@ -593,9 +594,14 @@ foreach($listePromo as $nn){
 	<div class="section">
 		<!-- container -->
 <?php
+		
 		$produitC1=new ProduitC();
 	$result=$produitC1->recupererProduit($_GET['details']);
 	foreach($result as $row){
+		$Avis1C=new AvisC();
+								$listeAvis=$Avis1C->recupererAvis($row['id']);
+
+								$listeAvis=$listeAvis->fetchAll();
 		?>
 
 		<div class="container">
@@ -676,11 +682,17 @@ foreach($listePromo as $nn){
 														
                                
 								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
+										<?php 
+									for ($i=0; $i < $Avis1C->AverageReview($row['id']); $i++) { 
+																# code...
+																echo '<i class="fa fa-star"></i>';
+															}
+															for ($i=$Avis1C->AverageReview($row['id']); $i < 5; $i++) { 
+																# code...
+																echo '<i class="fa fa-star-o empty"></i>';
+															}
+
+									?>
 								</div>
 
 								
@@ -711,7 +723,7 @@ foreach($listePromo as $nn){
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
 							
-								<li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
+								<li><a data-toggle="tab" href="#tab2">Reviews (<?php echo count($listeAvis); ?>)</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
@@ -723,60 +735,38 @@ foreach($listePromo as $nn){
 									<div class="row">
 										<div class="col-md-6">
 											<div class="product-reviews">
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-															irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-													</div>
-												</div>
+											<?PHP
+
+								
+
+											foreach ($listeAvis as $row) {
+												
+											
+
+											?>
 
 												<div class="single-review">
 													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
 														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
+															<?php 
+															echo $_SESSION['user_id'];
+															for ($i=0; $i < $row['rating']; $i++) { 
+																# code...
+																echo '<i class="fa fa-star"></i>';
+															}
+															for ($i=$row['rating']; $i < 5; $i++) { 
+																# code...
+																echo '<i class="fa fa-star-o empty"></i>';
+															}
+															
+															?>
 														</div>
 													</div>
 													<div class="review-body">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-															irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+														<p><?php echo $row['review']; ?></p>
 													</div>
 												</div>
-
-												<div class="single-review">
-													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
-														<div class="review-rating pull-right">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o empty"></i>
-														</div>
-													</div>
-													<div class="review-body">
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-															irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-													</div>
-												</div>
-
+													<?php } ?>
 												<ul class="reviews-pages">
 													<li class="active">1</li>
 													<li><a href="#">2</a></li>
@@ -785,18 +775,14 @@ foreach($listePromo as $nn){
 												</ul>
 											</div>
 										</div>
+
 										<div class="col-md-6">
 											<h4 class="text-uppercase">Write Your Review</h4>
 											<p>Your email address will not be published.</p>
-											<form class="review-form">
+											<form class="review-form" action="ajoutAvis.php" method="POST">
+												<input type="hidden" name="id" value="<?php echo $row['id']; ?>"/>
 												<div class="form-group">
-													<input class="input" type="text" placeholder="Your Name" />
-												</div>
-												<div class="form-group">
-													<input class="input" type="email" placeholder="Email Address" />
-												</div>
-												<div class="form-group">
-													<textarea class="input" placeholder="Your review"></textarea>
+													<textarea class="input" name="review" placeholder="Your review"></textarea>
 												</div>
 												<div class="form-group">
 													<div class="input-rating">
