@@ -2,7 +2,7 @@
 session_start();
 //include "../core/categorieC.php";
 
-include "../../core/utilisateurC.php";
+include "../core/utilisateurC.php";
 
 $utilisateurC=new UtilisateurC();
 //$listeUtilisateurs=$utilisateur1C->afficherUtilisateurs();
